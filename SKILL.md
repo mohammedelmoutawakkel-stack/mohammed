@@ -1,6 +1,6 @@
 ---
 name: humanizer
-version: 2.8.2
+version: 2.9.0
 description: |
   Remove signs of AI-generated writing from text. Use when editing or reviewing
   text to make it sound more natural and human-written. Based on Wikipedia's
@@ -520,6 +520,36 @@ Before returning the final rewrite, scan it for `—` and `–`. Any hit means t
 > Whether it's worth the price depends on how often you'll use it.
 
 
+## PASTED-OUTPUT ARTIFACTS
+
+These are not stylistic tells but literal scaffolding that leaks in when someone pastes raw model output without editing. Unlike the patterns above, they are close to zero false positive: genuine human prose does not contain them.
+
+### 34. Search and Citation Scaffolding Tags
+
+**Tokens to watch:** turn0search0, turn0news1 (any `turnNsearchN` / `turnNnewsN`), contentReference, oaicite, `:contentReference[oaicite:0]{index=0}`, cite turn0..., `:::` fenced tags, grok_card, a bare `+1` used as a trailing citation marker
+
+**Problem:** ChatGPT, Gemini, and Grok wrap citations and search results in internal scaffolding tokens that the interface is supposed to strip before display. They never occur in human writing, so when one survives into pasted text it is a definitive tell. Delete the tag. If it wrapped a real citation, keep the citation and drop the wrapper.
+
+**Before:**
+> The population grew 12% between 2010 and 2020 :contentReference[oaicite:0]{index=0}. It is the country's largest city turn0search3.
+
+**After:**
+> The population grew 12% between 2010 and 2020. It is the country's largest city.
+
+
+### 35. Leftover Placeholder and Template Text
+
+**Tokens to watch:** [insert X], [Your Name], [Company Name], [DATE], [XX], [TODO], [City], `<name>`, `{{placeholder}}`, "As an entry in [list]"
+
+**Problem:** When asked for a template, or when it lacks a specific value, an LLM emits a fill-in-the-blank slot. Left unfilled in finished prose, a bracketed or double-brace placeholder shows the text was generated and pasted without a human completing it. Fill the slot with the real value, or rewrite the sentence so it does not need one.
+
+**Before:**
+> Thank you for contacting [Company Name]. We will respond to your query about [issue] within [X] business days.
+
+**After:**
+> Thank you for contacting Acme Support. We will respond to billing queries within two business days.
+
+
 ## DETECTION GUIDANCE
 
 ### What NOT to flag (false positives)
@@ -539,6 +569,7 @@ A clean human writer can hit several of the patterns above without any AI involv
 - **Unsourced claims.** Most of the web is unsourced. Lack of citations doesn't prove anything.
 - **Correct, complex formatting.** Visual editors and templates produce clean output without any AI.
 - **Secondhand text.** Do not rewrite watched phrases inside quotations, titles, proper names, or examples where the phrase is being discussed rather than used.
+- **Intentional templates (§35).** A document that is explicitly a fill-in template, form, or boilerplate with slots the user will complete later is *supposed* to contain placeholders. Flag leftover placeholders only in text presented as finished. (Note: the scaffolding tags in §34 have no such exception; they are always safe to strip.)
 
 When in doubt, look for **clusters** of tells, not isolated ones. A single em dash means nothing; em dashes plus rule-of-three plus *vibrant tapestry* plus a "Conclusion" section is a confession.
 

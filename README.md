@@ -98,7 +98,7 @@ The skill also includes a final "obviously AI generated" audit pass and a second
 
 > "LLMs use statistical algorithms to guess what should come next. The result tends toward the most statistically likely result that applies to the widest variety of cases."
 
-## 33 Patterns Detected (with Before/After Examples)
+## 35 Patterns Detected (with Before/After Examples)
 
 ### Content Patterns
 
@@ -158,6 +158,13 @@ The skill also includes a final "obviously AI generated" audit pass and a second
 | 24 | **Excessive hedging** | "could potentially possibly" | "may" |
 | 25 | **Generic conclusions** | "The future looks bright" | Specific plans or facts |
 
+### Pasted-Output Artifacts
+
+| # | Pattern | Before | After |
+|---|---------|--------|-------|
+| 34 | **Search/citation scaffolding tags** | ":contentReference[oaicite:0]", "turn0search3", ":::", "grok_card" | Strip the tag; keep any real citation |
+| 35 | **Leftover placeholder text** | "contacting [Company Name]... within [X] days" | Fill the slot or rewrite without it |
+
 ## Full Example
 
 **Before (AI-sounding):**
@@ -193,6 +200,7 @@ The skill also includes a final "obviously AI generated" audit pass and a second
 
 ## Version History
 
+- **2.9.0** - Added a "Pasted-Output Artifacts" section with patterns #34 (search/citation scaffolding tags like `:contentReference[oaicite:0]`, `turn0search0`, `grok_card`, `:::`) and #35 (leftover placeholder/template text like `[Company Name]`, `[X]`). These are near-zero-false-positive tells that leak in when raw model output is pasted without editing. Both are drawn from the Markup and Communication sections of the Wikipedia source. 35 patterns total.
 - **2.8.2** - Replaced the full before/after example with a first-person Lisbon trip recap. The after now keeps the same topic, perspective, and rough length as the before while removing the AI tells without becoming clipped or slogan-like. No change to the 33 patterns.
 - **2.8.1** - Added cross-agent installation docs, optional Claude Code plugin packaging, and a compact secondhand-text false-positive guard. No change to the 33 patterns.
 - **2.8.0** - Added style/cadence patterns #31-33 for manufactured punchlines, aphorism formulas, and conversational rhetorical openers; expanded #20 to catch offer-to-continue chatbot closers. 33 patterns total.
