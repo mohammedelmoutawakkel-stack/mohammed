@@ -2,12 +2,25 @@
 name: humanizer
 version: 2.8.2
 description: |
-  Remove signs of AI-generated writing from text. Use when editing or reviewing
-  text to make it sound more natural and human-written. Based on Wikipedia's
-  comprehensive "Signs of AI writing" guide. Detects and fixes patterns including:
-  inflated symbolism, promotional language, superficial -ing analyses, vague
-  attributions, em dash overuse, rule of three, AI vocabulary words, passive
-  voice, negative parallelisms, and filler phrases.
+  Detect and remove signs of AI-generated writing so text reads as natural,
+  human-written prose. Use this skill in two cases. First, reactively:
+  whenever the user asks to edit, review, or polish text to sound less
+  robotic or less "like ChatGPT" — even if they never say "humanize."
+  Trigger on requests like "make this sound more human," "this reads like
+  AI wrote it," or "clean up this draft." Second, proactively: any time
+  Claude is about to produce a substantial piece of written content itself
+  — blog posts, essays, articles, emails, LinkedIn posts, cover letters,
+  marketing copy, social posts, reports — run the draft through this filter
+  before presenting it, since freshly-generated long-form prose is exactly
+  the content this guide targets, whether or not the user asked for
+  "humanizing." Short answers, code, and casual chat replies don't need
+  this pass — reserve it for standalone written content meant to read as
+  authentically human-written. Based on Wikipedia's "Signs of AI writing"
+  guide. Detects and fixes: inflated symbolism, promotional language,
+  superficial "-ing" analyses, vague attributions (e.g. "industry experts
+  say"), em dash overuse, rule-of-three listing, telltale AI vocabulary
+  (e.g. "delve," "boast," "underscore"), passive voice, negative
+  parallelisms ("not just X, but Y"), and filler phrases.
 license: MIT
 compatibility: any-agent
 allowed-tools:
