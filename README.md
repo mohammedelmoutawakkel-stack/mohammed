@@ -1,6 +1,8 @@
 # Humanizer
 
-A portable agent skill that removes signs of AI-generated writing from text, making it sound more natural and human. It is plain Markdown, so it can run in any harness that supports skill-style instructions.
+A portable agent skill that removes signs of AI-generated writing from text, making it sound more natural and human — **bilingual: English and German (zweisprachig)**. It is plain Markdown, so it can run in any harness that supports skill-style instructions.
+
+The skill auto-detects the language. English text is cleaned with the Wikipedia-based patterns; German text is cleaned with an added **German module ("KI-Deutsch", patterns G1–G16)** covering German-specific tells: Floskeln, Denglisch/calques (e.g. *macht Sinn → ergibt Sinn*, *in 2024 → 2024*), German quotation marks „…", the spaced Halbgeviertstrich (–), closed compounds, and Nominalstil overload. A register-calibration note keeps formal academic German (Wissenschaftssprache) from being flattened into short, translated-sounding sentences.
 
 ## Installation
 
@@ -70,6 +72,17 @@ Invoke the skill however your agent harness exposes installed skills. Common for
 
 ```
 Please humanize this text: [your text]
+```
+
+### German / Deutsch
+
+Works the same way on German text — paste German and the German module (G1–G16) applies automatically. For an essay or paper, name the register so it keeps the formal tone:
+
+```
+/humanizer
+
+Humanisiere diesen wissenschaftlichen Essay (akademisches Register beibehalten):
+[Text]
 ```
 
 ### Voice Calibration

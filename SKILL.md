@@ -1,13 +1,18 @@
 ---
 name: humanizer
-version: 2.8.2
+version: 2.9.0
 description: |
-  Remove signs of AI-generated writing from text. Use when editing or reviewing
-  text to make it sound more natural and human-written. Based on Wikipedia's
-  comprehensive "Signs of AI writing" guide. Detects and fixes patterns including:
-  inflated symbolism, promotional language, superficial -ing analyses, vague
-  attributions, em dash overuse, rule of three, AI vocabulary words, passive
-  voice, negative parallelisms, and filler phrases.
+  Remove signs of AI-generated writing from text, in English or German
+  (bilingual / zweisprachig). Use when editing or reviewing text to make it sound
+  more natural and human-written. Based on Wikipedia's comprehensive "Signs of AI
+  writing" guide, extended with a German module ("KI-Deutsch"). Detects and fixes
+  patterns including: inflated symbolism, promotional language, superficial -ing
+  analyses, vague attributions, em dash overuse, rule of three, AI vocabulary
+  words, passive voice, negative parallelisms, and filler phrases. For German it
+  additionally handles Floskeln, Denglisch/calques, „…"-quotation marks, the
+  spaced en-dash, Nominalstil overload, and register calibration for academic
+  German (Wissenschaftssprache). Trigger words: humanize, humanisieren,
+  entschwurbeln, "KI-Sprache entfernen", German/Deutsch text.
 license: MIT
 compatibility: any-agent
 allowed-tools:
@@ -27,10 +32,15 @@ You are a writing editor that identifies and removes signs of AI-generated text 
 
 When given text to humanize:
 
-1. **Identify AI patterns** - Scan for the patterns listed below.
+0. **Detect the language first.** English, German, or mixed?
+   - **English** → apply the CONTENT / LANGUAGE / STYLE / COMMUNICATION / FILLER patterns below.
+   - **German** → apply the **GERMAN MODULE ("KI-Deutsch", patterns G1–G16)** near the end of this file. The language-independent ideas above still hold (significance inflation, rule of three, vague authorities, servile artifacts, generic conclusions, hedging), but use the German examples and fixes, not the English word lists.
+   - **Mixed** → handle each passage in its own language; flag Denglisch (G4) where the languages leak into each other.
+   - Keep the output in the **same language as the input** unless a translation is requested. Never "fix" German by making it read like translated English.
+1. **Identify AI patterns** - Scan for the patterns for the detected language.
 2. **Rewrite, don't delete** - Replace AI-isms with natural alternatives, and cover everything the original covers. If the original has five paragraphs, the rewrite has five paragraphs.
 3. **Preserve meaning** - Keep the core message intact.
-4. **Match the voice** - Fit the intended tone (formal, casual, technical). Add personality only when the content and the author's voice call for it (see PERSONALITY AND SOUL).
+4. **Match the voice and register** - Fit the intended tone (formal, casual, technical, academic). Add personality only when the content and the author's voice call for it (see PERSONALITY AND SOUL). For German academic prose, read the calibration note at the top of the German module *before* rewriting — do not flatten Wissenschaftssprache into short English-style sentences.
 
 The draft → audit → final loop and the deliverable are defined under Process and Output, below.
 
@@ -558,9 +568,167 @@ When you see these, lean toward leaving the prose alone — they are evidence of
 
 ---
 
+## GERMAN MODULE — „KI-Deutsch" entfernen (Patterns G1–G16)
+
+Apply this section when the text is **German**. German LLM output has its own tells that the
+English patterns above do not catch (Floskeln, Denglisch/calques, the wrong dash and quotation
+marks, Nominalstil overload). The universal ideas and the DETECTION GUIDANCE cautions above still
+apply — cluster tells, don't flag isolated ones — but use these German examples and fixes.
+
+### ⚠ Register calibration — read before rewriting German
+German is not English with longer words. **Academic German (Wissenschaftssprache) legitimately
+uses** more nominal style, more passive, longer hypotactic sentences, and explicit connectors
+than English. Do **not** chop it into short punchy English-style sentences or force a chatty
+first-person "voice" — that would *worsen* an essay or paper. Strip the **AI Floskeln and
+calques** while keeping a formal, precise register. Calibrate to the text type:
+- **Essay / Hausarbeit / paper** → keep it formal and sachlich; remove filler, not complexity.
+  Prefer strong connectors (*mithin, insofern, demzufolge, gleichwohl, zwar … doch*) over empty
+  ones (*darüber hinaus, ferner, zudem* as mere paragraph glue).
+- **Blog / Marketing / casual** → the English-style advice about varied rhythm and personal
+  voice applies more directly.
+
+### G1. Floskelhafte Einleitungen & leere Meta-Kommentare
+**Watch:** „Es ist wichtig zu betonen, dass …", „Es sei darauf hingewiesen, dass …", „In der
+heutigen (schnelllebigen / digitalen / vernetzten) Welt", „In einer zunehmend … Welt",
+„Im Folgenden werde ich …", „Nicht zuletzt".
+**Problem:** Leerlauf-Sätze, die nichts behaupten und nur den eigentlichen Satz ankündigen.
+**Vorher:** Es ist wichtig zu betonen, dass das Grundeinkommen ein zentrales Thema ist.
+**Nachher:** Das Grundeinkommen wirft eine grundsätzliche Gerechtigkeitsfrage auf: Wer hat
+Anspruch auf gesellschaftliche Unterstützung?
+
+### G2. Bedeutungsaufblähung (significance inflation, DE)
+**Watch:** „spielt eine entscheidende/zentrale/wichtige Rolle", „ist von großer Bedeutung",
+„stellt einen Meilenstein dar", „prägt maßgeblich", „vor dem Hintergrund", „im Wandel der Zeit",
+„gewinnt zunehmend an Bedeutung".
+**Vorher:** Rawls spielt eine entscheidende Rolle und prägt die Debatte maßgeblich vor dem
+Hintergrund der modernen Gerechtigkeitstheorie.
+**Nachher:** Rawls formuliert das Differenzprinzip, an dem sich die spätere Debatte abarbeitet.
+
+### G3. Werbe-/Hochglanz-Sprache
+**Watch:** „vielfältig", „reichhaltig", „beeindruckend", „einzigartig", „wunderschön",
+„atemberaubend", „im Herzen von", „eingebettet in", „lädt dazu ein".
+**Vorher:** Die vielfältige und reichhaltige Theorie von Van Parijs lädt dazu ein, das Thema aus
+einer einzigartigen Perspektive zu betrachten.
+**Nachher:** Van Parijs begründet das bedingungslose Grundeinkommen mit dem Prinzip der realen
+Freiheit für alle.
+
+### G4. Denglisch, Anglizismen & Lehnübersetzungen (calques) — the biggest German AI tell
+**Watch / fixes:**
+- „macht Sinn" → **„ergibt Sinn"** / „ist sinnvoll"
+- „in 2024" → **„2024"** oder „im Jahr 2024"
+- „am Ende des Tages" (at the end of the day) → **„letztlich"** / „im Ergebnis"
+- „adressieren" (ein Problem) → **„angehen" / „behandeln"**
+- „realisieren" (im Sinne von erkennen) → **„erkennen" / „sich klarmachen"**
+- „basierend auf" als Satzanfang → **„auf der Grundlage von" / „gestützt auf"**
+- „nicht zuletzt", „in diesem Sinne", „zum jetzigen Zeitpunkt" → oft streichen
+- unnötige englische Fachwörter (Basic Income, Free-Riding, Fairness) → deutschen Terminus
+  nehmen, englischen höchstens einmal in Klammern.
+**Vorher:** Basierend auf der Fairness-Theorie macht es Sinn, das Problem des Free-Ridings am Ende
+des Tages zu adressieren.
+**Nachher:** Auf der Grundlage der Gerechtigkeitstheorie ist das Problem des Trittbrettfahrens
+ernst zu nehmen.
+
+### G5. Modewörter / AI-Vokabular (DE)
+**Watch:** „maßgeblich", „essenziell", „ganzheitlich", „nachhaltig" (als Füllwort), „gezielt",
+„innovativ", „dynamisch", „facettenreich", „Zusammenspiel" (= interplay), „Landschaft" (abstrakt,
+Calque von *landscape*: „Bildungslandschaft"), „beleuchten" / „hervorheben" / „unterstreichen"
+(= highlight), „aufzeigen".
+**Fix:** durch konkrete Verben und Substantive ersetzen; oft ersatzlos streichen.
+
+### G6. Dreierfiguren (rule of three, DE)
+**Problem:** Gruppen aus drei Adjektiven/Substantiven, um „vollständig" zu wirken.
+**Vorher:** Das Grundeinkommen ist gerecht, effizient und zukunftsweisend.
+**Nachher:** Das Grundeinkommen behandelt Erwerbstätige und Nichterwerbstätige nach demselben
+Maßstab.
+
+### G7. Negative Parallelismen & „sowohl … als auch"-Häufung
+**Watch:** „nicht nur … sondern auch", „Es geht nicht bloß um X, sondern um Y", „sowohl … als
+auch" in Serie.
+**Vorher:** Es geht nicht nur um Geld, sondern auch um Würde — sowohl für den Einzelnen als auch
+für die Gesellschaft.
+**Nachher:** Es geht um die materielle Grundlage, ohne die Freiheit bloß formal bleibt.
+
+### G8. Nominalstil-Überladung (Nominalisierungs-Ketten)
+**Problem:** Aneinanderreihung von -ung/-heit/-keit-Substantiven; „Deutsch" der Verwaltung.
+**Vorher:** Zur Gewährleistung der Sicherstellung einer gerechten Verteilung bedarf es der
+Umsetzung einer Umverteilung.
+**Nachher:** Damit gerecht verteilt wird, muss umverteilt werden.
+*(Maßvoll: ein gewisser Nominalstil gehört zur Fachsprache — nur die leeren Ketten auflösen.)*
+
+### G9. Leere Übergänge als Absatzkleber
+**Watch:** „Darüber hinaus", „Des Weiteren", „Ferner", „Zudem", „Außerdem" — mechanisch am
+Absatzanfang.
+**Fix:** durch einen echten logischen Konnektor ersetzen, der die *Beziehung* benennt
+(*folglich, denn, gleichwohl, im Gegensatz dazu*), oder den Absatz ohne Floskel beginnen.
+
+### G10. Leere Schlusssätze & Zusammenfassungs-Floskeln
+**Watch:** „Zusammenfassend lässt sich sagen, dass …", „Abschließend bleibt festzuhalten …",
+„Es bleibt abzuwarten …", „In diesem Sinne …", „Die Zukunft verspricht spannend zu werden."
+**Vorher:** Zusammenfassend lässt sich sagen, dass das Thema vielschichtig ist und die Zukunft
+spannend bleibt.
+**Nachher:** Die Reziprozitätsfrage bleibt der stärkste Einwand — aber sie entscheidet den Fall
+nicht, wenn Markteinkommen selbst zum Teil leistungslose Rente ist.
+
+### G11. Scheinpräzision & vage Autoritäten
+**Watch:** „Studien zeigen", „Experten sind sich einig", „Es wird oft behauptet", „viele Kritiker
+argumentieren".
+**Fix:** konkrete Quelle mit Autor/Jahr/Seite nennen — oder die Behauptung streichen.
+
+### G12. Übermäßiges Hedging (Konjunktiv-Weichspüler)
+**Watch:** „man könnte möglicherweise eventuell argumentieren", „unter Umständen", „gewissermaßen",
+„in gewisser Weise", „tendenziell".
+**Vorher:** Man könnte möglicherweise argumentieren, dass dies eventuell ungerecht sein könnte.
+**Nachher:** Das ist ungerecht, weil …
+*(Konjunktiv I zur **Wiedergabe fremder Positionen** ist dagegen korrekt und erwünscht — nicht
+entfernen: „Rawls argumentiert, die Muße sei hinzuzurechnen.")*
+
+### G13. Anführungszeichen — deutsche statt englischer/typographischer
+**Problem:** KI setzt englische „...“ oder gerade "..." statt deutscher Anführungszeichen.
+**Fix:** **„…"** (unten-oben) für Zitate, **‚…'** für Zitat im Zitat. Auslassung: […].
+**Vorher:** Rawls nennt sie "die am schlechtesten Gestellten".
+**Nachher:** Rawls nennt sie „die am schlechtesten Gestellten".
+
+### G14. Der falsche Gedankenstrich
+**Problem:** KI nutzt den englischen Em-Dash (—) ohne Leerzeichen. Im Deutschen ist der
+**Halbgeviertstrich (–) mit Leerzeichen davor und danach** korrekt, und er wird sparsamer
+gesetzt als im Englischen. (Vgl. §14 oben — die englische Regel „ganz streichen" gilt für DE
+nicht 1:1; hier: richtigen Halbgeviertstrich setzen, aber sparsam.)
+**Vorher:** Das Grundeinkommen ist unbedingt—und genau das ist der Streitpunkt.
+**Nachher:** Das Grundeinkommen ist unbedingt, und genau das ist der Streitpunkt.
+*(oder mit Halbgeviertstrich: „… ist unbedingt – und genau das ist der Streitpunkt.")*
+
+### G15. Chatbot-/Servil-Artefakte (DE)
+**Watch:** „Gerne!", „Natürlich!", „Das ist eine ausgezeichnete Frage!", „Ich hoffe, das hilft dir
+weiter.", „Lass es mich wissen, wenn …", „Klar doch!".
+**Fix:** ersatzlos streichen; direkt mit dem Inhalt beginnen.
+
+### G16. Deppenleerzeichen & falsche Bindestriche in Komposita
+**Problem:** Komposita fälschlich getrennt („Grund Einkommen", „Gerechtigkeits Frage") oder
+unnötig mit Bindestrich, statt zusammengeschrieben.
+**Fix:** **zusammenschreiben** („Grundeinkommen", „Gerechtigkeitsfrage", „Beschäftigungsrenten");
+Bindestrich nur zur Lesbarkeit langer/unklarer Komposita oder bei Eigennamen
+(„Rawls-Kapitel", „real-libertär").
+
+### Deutsches Vollbeispiel
+**Vorher (nach KI-Deutsch klingend):**
+> In der heutigen schnelllebigen Welt spielt das bedingungslose Grundeinkommen eine
+> entscheidende Rolle. Es ist wichtig zu betonen, dass die Theorie von Van Parijs sowohl
+> vielfältig als auch beeindruckend ist. Basierend auf der Fairness macht es Sinn, das Problem
+> am Ende des Tages zu adressieren. Studien zeigen, dass ein Grundeinkommen gerecht, effizient
+> und zukunftsweisend ist. Zusammenfassend lässt sich sagen, dass das Thema vielschichtig bleibt.
+
+**Nachher (sachlich, ohne Floskeln, akademisches Register erhalten):**
+> Das bedingungslose Grundeinkommen wirft eine grundsätzliche Frage auf: Verdient auch derjenige
+> Unterstützung, der arbeiten könnte, es aber nicht will? Van Parijs bejaht dies mit dem Prinzip
+> der realen Freiheit für alle (Van Parijs, 1991, S. 103). Der Einwand der Reziprozität wiegt
+> schwer; er entscheidet den Fall jedoch nicht, denn ein erheblicher Teil des Markteinkommens ist
+> leistungslose Rente auf knappe Arbeitsplätze (Van Parijs, 1991, S. 128 f.).
+
+---
+
 ## Process and Output
 
-1. Read the input carefully and identify every instance of the patterns above.
+1. Read the input carefully, **detect the language (English / German / mixed)**, and identify every instance of the patterns above (German → the G1–G16 module).
 2. Write a **draft rewrite**. Check that it reads naturally aloud, varies sentence length, prefers specific details and simple constructions (is/are/has), and keeps the appropriate register.
 3. Ask: **"What makes the below so obviously AI generated?"** Answer briefly with any remaining tells.
 4. Revise into a **final rewrite** that addresses them and contains no em or en dashes (see §14).
