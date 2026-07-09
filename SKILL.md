@@ -1,13 +1,16 @@
 ---
 name: humanizer
-version: 2.8.2
+version: 2.9.0-academic
 description: |
   Remove signs of AI-generated writing from text. Use when editing or reviewing
   text to make it sound more natural and human-written. Based on Wikipedia's
   comprehensive "Signs of AI writing" guide. Detects and fixes patterns including:
   inflated symbolism, promotional language, superficial -ing analyses, vague
   attributions, em dash overuse, rule of three, AI vocabulary words, passive
-  voice, negative parallelisms, and filler phrases.
+  voice, negative parallelisms, and filler phrases. Academic-aware: preserves
+  legitimate typographic en dashes (numeric/date ranges, proper-name compounds
+  such as Diebold-Mariano, and established relational compounds) in scholarly
+  and technical text, and keeps a neutral register for manuscripts.
 license: MIT
 compatibility: any-agent
 allowed-tools:
@@ -259,6 +262,13 @@ Avoiding AI patterns is only half the job. Sterile, voiceless writing is just as
 ### 14. Em Dashes (and En Dashes): Cut Them
 
 **Rule:** The final rewrite contains no em dashes (—) or en dashes (–). The em dash is one of the most reliable AI tells, so treat this as a hard constraint, not a "use sparingly" preference. Replace each one, in rough order of preference: a period (start a new sentence), a comma (a tight aside), a colon (introducing an explanation), parentheses (a true aside), or restructure the sentence. Also catch spaced em dashes (` — `) and double hyphens (` -- `) used the same way.
+
+**Academic, technical, and reference exception:** In scholarly manuscripts, documentation, and other reference text, the en dash (–) is legitimate typographic notation, not an AI tell, in three cases that you MUST preserve:
+- **Numeric and date ranges:** `2001–2022`, `pp. 12–18`, `Figures 3–5`, `R² = 0.90–0.99`.
+- **Proper-name compounds** naming two or more people or things: `Im–Pesaran–Shin test`, `Diebold–Mariano test`, `Cobb–Douglas function`, `Newey–West errors`, `Engle–Granger`.
+- **Established relational compounds:** `income–environment nexus`, `cost–benefit analysis`, `dose–response curve`, `north–south divide`.
+
+The tell you still remove is the *em* dash and the sentence-level parenthetical dash (`—`, ` — `, ` --- `, ` -- `) used as an aside or dramatic pause. In one line: **kill the dash-as-punctuation, keep the dash-as-notation.** When unsure, check what the dash joins — two values on a scale or two names (keep) versus an interrupted clause (cut). Do not convert `2001–2022` to `2001 to 2022` or split `Diebold–Mariano` in a journal manuscript; that degrades the text and is not what reviewers expect.
 
 **Before:**
 > The term is primarily promoted by Dutch institutions—not by the people themselves. You don't say "Netherlands, Europe" as an address—yet this mislabeling continues—even in official documents.
@@ -534,6 +544,7 @@ A clean human writer can hit several of the patterns above without any AI involv
 - **Common transition words in isolation.** *Additionally*, *moreover*, *consequently* are AI-coded only when piled up. One *however* is not a tell.
 - **Curly quotes alone.** macOS, Word, Google Docs, and most CMSes auto-curl by default. Curly quotes only count when stacked with other tells.
 - **Em dashes alone.** Many editors and journalists use them often. Em dashes are evidence only when paired with formulaic sales-y rhythm.
+- **En dashes in ranges, names, or established compounds.** `2001–2022`, `pp. 12–18`, `Diebold–Mariano`, `cost–benefit` are standard typography in academic and technical writing, not AI tells. Never flatten these; only the parenthetical em dash counts (see §14 exception).
 - **One short emphatic sentence.** Humans use clipped sentences to land a point. Flag staccato drama only when several short fragments appear in a row and inflate the tone.
 - **"Honestly" or "look" mid-sentence.** These are ordinary in casual writing. The tell is the standalone theatrical opener, not the word itself.
 - **Unsourced claims.** Most of the web is unsourced. Lack of citations doesn't prove anything.
