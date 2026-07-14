@@ -556,6 +556,26 @@ When you see these, lean toward leaving the prose alone — they are evidence of
 - **Edits made before November 30, 2022.** ChatGPT's public launch. Anything older than that is, with very rare exceptions, not AI-written.
 
 
+### 34. Echo Reversal Closers
+**Signs to watch:** A short sentence that dramatically echoes the prior sentence ("They always were." after "Tufte's principles are executable.").
+**Problem:** LLMs generate these as fake profundity — a TED-talk-style mic drop that sounds punchy but adds zero information. The pattern is: statement, then dramatic confirmation of the statement.
+**Before:**
+> Tufte's principles are executable. They always were.
+>
+> A skill makes that explicit.
+**After:**
+> By combining the 1939 and Tufte agent skills, any human and their agent can create beautiful visual design and publications.
+**Fix:** Replace the echo + fragment with a concrete statement about what the reader can actually do.
+
+### 35. Hollow Declarative Closers ("X is the story/point/takeaway")
+**Signs to watch:** A phrase that declares something is "the story," "the point," "the takeaway," "the real issue," or "what matters" without adding new information. Often appears as a subtitle or closing clause.
+**Problem:** LLMs use these as punchy-sounding closers that sound insightful but state the obvious. A human would either explain WHY it's the story or just state the finding directly. The pattern is: state a fact, then declare that fact is significant, without explaining the significance.
+**Before:**
+> BatchMetrics grew from 55% to 75% of revenue in 3 years — the mix shift is the story
+**After:**
+> BatchMetrics grew from 55% to 75% of revenue in 3 years — software now dominates the mix
+**Fix:** Replace "X is the story/point/takeaway" with a concrete consequence. If the mix shift matters, say what it causes. Don't just declare it matters.
+
 ---
 
 ## Process and Output
