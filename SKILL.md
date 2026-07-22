@@ -9,7 +9,7 @@ description: |
   voice, negative parallelisms, and filler phrases.
 license: MIT
 metadata:
-  version: "2.9.1"
+  version: "2.10.0"
 ---
 
 # Humanizer: Remove AI Writing Patterns
@@ -180,7 +180,20 @@ When voice is appropriate, avoid uniform sentence structures, bloodless neutrali
 **After:**
 > The new policy, announced without warning, affects thousands of workers. The changes, long overdue according to critics, will take effect immediately.
 
-Before returning the final rewrite, scan it for `—` and `–`. Any hit means the draft isn't done. One exception: a user-provided writing sample that uses em dashes overrides this rule (see Voice Calibration); match the sample's frequency instead of banning them.
+**Exception: annotated-link and definition separators.** An em dash is sometimes a structural separator rather than a mid-sentence tell. The common case is a reference or source list where each item is a linked title followed by a description:
+
+> [Debian Wiki – SSH](https://wiki.debian.org/SSH) — Debian-specific notes on SSH configuration, including the drop-in files under `/etc/ssh/sshd_config.d/`.
+
+The em dash after `](url)` separates the title from its annotation (the "title — description" pattern, one item per line). The same shape appears in glossaries and definition lists (`**Term** — definition`). Removing it flattens a deliberate formatting convention, not an AI habit.
+
+Detect this case: an em dash that directly follows a Markdown link `](url)` or a bolded/leading term at the start of a list item and introduces a descriptive clause for that title. When you hit the **first** such separator in a document, stop and ask the user which they want:
+
+- **Keep** the annotated-link separators as em dashes (leave them untouched).
+- **Convert** them like any other em dash (a period or a colon).
+
+Apply the answer to every matching separator in the document; do not re-ask per occurrence. If the mode cannot ask (embedded mode), default to keeping these separators, since the pattern is a legitimate convention rather than a tell. This exception covers only the title/term separator; em dashes inside the surrounding prose still follow the rule above.
+
+Before returning the final rewrite, scan it for `—` and `–`. Any hit means the draft isn't done, with two exceptions: a user-provided writing sample that uses em dashes overrides this rule (see Voice Calibration; match the sample's frequency instead of banning them), and annotated-link or definition separators you kept after asking the user (see the exception above).
 
 ### 15. Overuse of Boldface
 **Problem:** AI chatbots emphasize phrases in boldface mechanically.
