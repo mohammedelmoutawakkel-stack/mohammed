@@ -106,6 +106,8 @@ The skill also includes a final "obviously AI generated" audit pass and a second
 
 Rewrites follow a no-fabrication rule: they never add facts, names, dates, or citations that aren't in the source text. Specificity has to come from the source or the author, not from the rewrite.
 
+`SKILL.md` keeps the condensed watch-words and problem statement for each of the 33 patterns; full before/after examples live in [`PATTERNS.md`](PATTERNS.md) so a normal invocation doesn't have to load every example.
+
 ### Key Insight from Wikipedia
 
 > "LLMs use statistical algorithms to guess what should come next. The result tends toward the most statistically likely result that applies to the widest variety of cases."
@@ -207,6 +209,7 @@ Rewrites follow a no-fabrication rule: they never add facts, names, dates, or ci
 
 ## Version History
 
+- **2.10.0** - Split the 33 patterns' before/after examples out of `SKILL.md` into a new `PATTERNS.md`, keeping only watch-words and problem statements (plus a pointer to the matching example) in the runtime prompt. `SKILL.md` drops from 412 to 247 lines; the patterns, their numbering, and their behavior are unchanged. `scripts/validate-package.py` now also checks that `PATTERNS.md` contains examples 1-33 in order.
 - **2.9.1** - Improved distribution and portability: removed nonportable frontmatter and tool preapprovals, made global installation the documented default, added package validation, and removed the duplicated long-form example from the runtime prompt. No change to the 33 patterns.
 - **2.9.0** - Added a no-fabrication rule: rewrites may not invent facts, names, dates, or citations not present in the source, and every example that modeled invented specifics was re-cut to use only source information (fixes #187). Replaced paragraph-count parity with an information-over-shape rule, made a user's voice sample outrank the em dash ban, and added invocation modes (pasted text / file / embedded). No change to the 33 patterns.
 - **2.8.3** - Moved the skill version from the unsupported top-level frontmatter key to `metadata.version` for Agent Skills and Claude compatibility. No change to the 33 patterns.

@@ -11,6 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 SKILL = (ROOT / "SKILL.md").read_text()
 README = (ROOT / "README.md").read_text()
+PATTERNS = (ROOT / "PATTERNS.md").read_text()
 PLUGIN = json.loads((ROOT / ".claude-plugin" / "plugin.json").read_text())
 
 
@@ -48,6 +49,13 @@ pattern_numbers = [
 ]
 if pattern_numbers != list(range(1, 34)):
     raise SystemExit(f"Expected patterns 1-33, found {pattern_numbers}")
+
+patterns_numbers = [
+    int(number)
+    for number in re.findall(r"(?m)^### ([0-9]+)\. ", PATTERNS)
+]
+if patterns_numbers != list(range(1, 34)):
+    raise SystemExit(f"Expected PATTERNS.md to contain examples 1-33 in order, found {patterns_numbers}")
 
 readme_numbers = {
     int(number) for number in re.findall(r"(?m)^\| ([0-9]+) \|", README)
