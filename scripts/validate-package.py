@@ -58,4 +58,27 @@ if readme_numbers != set(range(1, 34)):
 if len(SKILL.splitlines()) > 500:
     raise SystemExit("SKILL.md exceeds the 500-line portability budget")
 
+description = require(
+    re.search(r"(?m)^description: \|\n((?:  .*\n)+)", frontmatter),
+    "SKILL.md frontmatter must have a block-style description",
+).group(1)
+description_flat = " ".join(line.strip() for line in description.splitlines()).strip()
+if len(description_flat) > 1024:
+    raise SystemExit(
+        f"SKILL.md description exceeds the 1024-character Agent Skills spec limit "
+        f"({len(description_flat)} chars)"
+    )
+
+EXAMPLES = ROOT / "references" / "examples.md"
+if not EXAMPLES.exists():
+    raise SystemExit("references/examples.md is missing")
+examples_numbers = [
+    int(number) for number in re.findall(r"(?m)^## ([0-9]+)\. ", EXAMPLES.read_text())
+]
+if examples_numbers != list(range(1, 34)):
+    raise SystemExit(
+        f"references/examples.md must contain ## 1. through ## 33. headings "
+        f"matching SKILL.md, found {examples_numbers}"
+    )
+
 print(f"Humanizer package v{skill_version} is valid")

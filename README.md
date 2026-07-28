@@ -2,7 +2,7 @@
 
 [![skills.sh installs](https://skills.sh/b/blader/humanizer)](https://skills.sh/blader/humanizer)
 
-A portable agent skill that removes signs of AI-generated writing from text, making it sound more natural and human. It is plain Markdown, so it can run in any harness that supports skill-style instructions.
+A portable agent skill that rewrites text to strip the tells of AI-generated writing so it reads as natural, human, and professionally credible, from AI-drafted design docs and PRs to blog posts and essays. It is plain Markdown, so it can run in any harness that supports skill-style instructions.
 
 ## Installation
 
@@ -106,6 +106,10 @@ The skill also includes a final "obviously AI generated" audit pass and a second
 
 Rewrites follow a no-fabrication rule: they never add facts, names, dates, or citations that aren't in the source text. Specificity has to come from the source or the author, not from the rewrite.
 
+Without a writing sample, the skill defaults to a professional technical register suited to design docs, runbooks, PRs, commit messages, and technical email: plain, precise, neutral, and careful to preserve domain and regulatory vocabulary rather than flatten it.
+
+Each pattern's detection cues (words to watch, the problem it signals) live directly in `SKILL.md`; the full before/after example for every pattern lives in `references/examples.md`, which keeps the always-loaded skill body smaller without dropping any pattern's worked example.
+
 ### Key Insight from Wikipedia
 
 > "LLMs use statistical algorithms to guess what should come next. The result tends toward the most statistically likely result that applies to the widest variety of cases."
@@ -207,6 +211,7 @@ Rewrites follow a no-fabrication rule: they never add facts, names, dates, or ci
 
 ## Version History
 
+- **2.10.0** - Optimized the frontmatter description for triggering accuracy (imperative phrasing, explicit non-obvious contexts like design docs/PRs/commit messages, dropped provenance text) per agentskills.io's description-optimization guidance. Moved each pattern's full before/after example to a new `references/examples.md`, keeping only words-to-watch and the one-line problem statement (plus compact inline examples for the highest-value patterns) in `SKILL.md`, cutting the always-loaded body from 412 to ~290 lines. Added a default professional-technical register for rewrites made without a voice sample, and a false-positive guard for domain/engineering terms that overlap the AI-vocabulary watchlist (pipeline, landscape, validation, robust, leverage). No change to the 33 patterns.
 - **2.9.1** - Improved distribution and portability: removed nonportable frontmatter and tool preapprovals, made global installation the documented default, added package validation, and removed the duplicated long-form example from the runtime prompt. No change to the 33 patterns.
 - **2.9.0** - Added a no-fabrication rule: rewrites may not invent facts, names, dates, or citations not present in the source, and every example that modeled invented specifics was re-cut to use only source information (fixes #187). Replaced paragraph-count parity with an information-over-shape rule, made a user's voice sample outrank the em dash ban, and added invocation modes (pasted text / file / embedded). No change to the 33 patterns.
 - **2.8.3** - Moved the skill version from the unsupported top-level frontmatter key to `metadata.version` for Agent Skills and Claude compatibility. No change to the 33 patterns.
