@@ -11,7 +11,7 @@ description: |
   hedging, and boilerplate, without inventing facts.
 license: MIT
 metadata:
-  version: "2.10.0"
+  version: "2.10.1"
 ---
 
 # Humanizer: Remove AI Writing Patterns
@@ -98,7 +98,7 @@ ambiguous or you want a model to check against.
 
 ### 7. Overused "AI Vocabulary" Words
 
-**High-frequency AI words:** Actually, additionally, align with, crucial, delve, emphasizing, enduring, enhance, fostering, garner, highlight (verb), interplay, intricate/intricacies, key (adjective), landscape (abstract noun), pivotal, showcase, tapestry (abstract noun), testament, underscore (verb), valuable, vibrant
+**High-frequency AI words:** Actually, additionally, align with, crucial, delve, emphasizing, enduring, enhance, fostering, garner, highlight (verb), interplay, intricate/intricacies, key (adjective), landscape (abstract noun), load-bearing (figurative, as in "load-bearing principles/decisions"), pivotal, showcase, tapestry (abstract noun), testament, underscore (verb), valuable, vibrant
 **Problem:** These words appear far more frequently in post-2023 text. They often co-occur.
 **Before:**
 > Additionally, a distinctive feature of Somali cuisine is the incorporation of camel meat. An enduring testament to Italian colonial influence is the widespread adoption of pasta in the local culinary landscape, showcasing how these dishes have integrated into the traditional diet.
