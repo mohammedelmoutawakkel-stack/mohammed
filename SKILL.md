@@ -354,31 +354,35 @@ Before returning the final rewrite, scan it for `—` and `–`. Any hit means t
 
 ## ADVANCED ANTI-DETECTOR EXPLOITS
 
-AI detectors measure Perplexity (predictability of words) and Burstiness (variation in sentence length/structure). To defeat them while maintaining perfect grammatical correctness, apply the following exploits:
+AI detectors measure Perplexity (predictability of words) and Burstiness (variation in sentence length/structure). To defeat them while maintaining highly readable English, apply the following exploits. The goal is to mimic the slightly informal, highly opinionated voice of a real developer or engineer writing a project report.
 
 ### 34. Unusual Conceptual Capitalization (Perplexity Exploit)
-**Problem:** AI models strictly follow standard capitalization rules. Capitalizing common nouns or concepts mid-sentence as if they were proper nouns is grammatically acceptable in technical contexts but statistically unusual for AI, lowering detector predictability.
-**Rule:** Do NOT use random mid-word capitalization (e.g., "soFtware"). Instead, capitalize the first letter of entire common nouns, concepts, or project components mid-sentence, treating them as proper nouns.
+**Problem:** AI models strictly follow standard capitalization rules. Capitalizing common nouns, technical concepts, or system phases mid-sentence is grammatically acceptable in technical contexts but statistically unusual for AI, which drastically lowers detector predictability.
+**Rule:** Do NOT use random mid-word capitalization (e.g., "soFtware"). Instead, capitalize the first letter of entire common nouns, concepts, or project components mid-sentence, treating them as proper nouns. Capitalize system phases, technical patterns, and stack components.
 **Before:**
-> The dashboard handles all the logic, while the agent on the device just collects data. Moving from local testing to actual production was a big challenge.
+> The first version used Pinecone as the vector database, GLM-OCR served through Ollama for extraction and embedding, and MiniMax M3, through Ollama Cloud, for answer generation.
 **After:**
-> The Dashboard handles all the logic, while the Agent on the device just collects data. Moving from local testing to actual Production was a big challenge.
+> The First Version used Pinecone as the Vector Database, GLM-OCR served through Ollama for extraction and embedding, I used MiniMax M3 using Ollama Cloud for text generation.
 
-### 35. Maximize Burstiness (Structural Exploit)
-**Problem:** AI detectors flag uniform sentence lengths. AI writes in balanced, mid-length sentences. Humans write in chaotic bursts.
-**Rule:** Create extreme variation in sentence structure using perfectly correct English. Frequently use valid stylistic fragments for emphasis, immediately followed by massive, complex-compound sentences using semicolons or parentheses (since em dashes are banned by §14). Vary paragraph lengths significantly.
+### 35. Conversational Run-ons and Comma Splices (Burstiness Exploit)
+**Problem:** AI writes in perfectly balanced, grammatically isolated sentences. Humans often link independent thoughts with commas in a fast train of thought.
+**Rule:** Frequently connect what should be separate independent sentences using only a comma (comma splicing) to mimic a conversational train of thought. Shift subjects mid-sentence if it sounds natural.
 **Before:**
-> The system was built from scratch. It includes several components. These components work together to manage the network.
+> That alone saved roughly 20,000 tokens per query, which helped both latency and cost.
 **After:**
-> No existing codebase was handed to me. Nothing to improve. I built it from scratch. The platform includes the agent, the communication layer, and the dashboard, which work together to manage the network seamlessly across thousands of endpoints.
+> I also cached the system prompt, Ollama supported it, hence the instructional part which costed about 20,000 tokens per query shrunk down to 10%, this helped in both latency and the cost.
 
 ### 36. Ban AI Transition Words (Predictability Exploit)
 **Problem:** Standard AI transitional phrases are highly predictable and immediately flagged by detectors.
-**Rule:** You are strictly forbidden from using standard AI transitional phrases. BANNED WORDS: "Furthermore," "Moreover," "Additionally," "In conclusion," "Consequently," "It is important to note." Start sentences abruptly with the subject or use conversational but correct transitions like "Because of this," "So," "And that meant," or "The result was that..."
+**Rule:** You are strictly forbidden from using standard AI transitional phrases. BANNED WORDS: "Furthermore," "Moreover," "Additionally," "In conclusion," "Consequently," "It is important to note." Start sentences abruptly with the subject or use conversational but correct transitions like "Because of this," "So," "And that meant," "hence," or "along with that."
 
-### 37. Lexical Unpredictability (Perplexity Exploit)
-**Problem:** AI models choose the most statistically probable word. To break the algorithm, you must choose the second or third most probable word while remaining perfectly grammatically correct.
-**Rule:** Replace generic verbs with highly specific, slightly colloquial but correct verbs. (e.g., use "I rewired the backend" instead of "I refactored the backend"; use "I ran into a wall" instead of "I encountered an issue"). Use unexpected but valid adjectives (e.g., "a surprisingly dense bottleneck" instead of "a major problem").
+### 37. Casual Developer Voice & Lexical Unpredictability
+**Problem:** AI text speaks in generalities and uses formal verbs. Human text uses slightly colloquial phrasing, minor imperfections, and highly specific verbs.
+**Rule:** Replace generic verbs with highly specific, slightly colloquial but correct verbs. (e.g., use "I rewired the backend" instead of "I refactored the backend"; use "I ran into a wall" instead of "I encountered an issue"). Allow minor conversational quirks like "which costed about" or "the only trade of was". Mix highly formal technical jargon with sudden, casual, first-person reflections.
+**Before:**
+> That rename wasn't cosmetic, it came with a full backend rebuild aimed squarely at solving the image problem properly this time.
+**After:**
+> The rename wasn’t cosmetic, it came with a full backend rebuild.
 
 ### 38. The Hyper-Specific Grounding Technique
 **Problem:** AI text speaks in generalities. Human text uses oddly specific, sometimes irrelevant details.
