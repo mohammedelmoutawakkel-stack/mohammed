@@ -352,6 +352,38 @@ Before returning the final rewrite, scan it for `—` and `–`. Any hit means t
 **After:**
 > Whether it's worth the price depends on how often you'll use it.
 
+## ADVANCED ANTI-DETECTOR EXPLOITS
+
+AI detectors measure Perplexity (predictability of words) and Burstiness (variation in sentence length/structure). To defeat them while maintaining perfect grammatical correctness, apply the following exploits:
+
+### 34. Unusual Conceptual Capitalization (Perplexity Exploit)
+**Problem:** AI models strictly follow standard capitalization rules. Capitalizing common nouns or concepts mid-sentence as if they were proper nouns is grammatically acceptable in technical contexts but statistically unusual for AI, lowering detector predictability.
+**Rule:** Do NOT use random mid-word capitalization (e.g., "soFtware"). Instead, capitalize the first letter of entire common nouns, concepts, or project components mid-sentence, treating them as proper nouns.
+**Before:**
+> The dashboard handles all the logic, while the agent on the device just collects data. Moving from local testing to actual production was a big challenge.
+**After:**
+> The Dashboard handles all the logic, while the Agent on the device just collects data. Moving from local testing to actual Production was a big challenge.
+
+### 35. Maximize Burstiness (Structural Exploit)
+**Problem:** AI detectors flag uniform sentence lengths. AI writes in balanced, mid-length sentences. Humans write in chaotic bursts.
+**Rule:** Create extreme variation in sentence structure using perfectly correct English. Frequently use valid stylistic fragments for emphasis, immediately followed by massive, complex-compound sentences using semicolons or parentheses (since em dashes are banned by §14). Vary paragraph lengths significantly.
+**Before:**
+> The system was built from scratch. It includes several components. These components work together to manage the network.
+**After:**
+> No existing codebase was handed to me. Nothing to improve. I built it from scratch. The platform includes the agent, the communication layer, and the dashboard, which work together to manage the network seamlessly across thousands of endpoints.
+
+### 36. Ban AI Transition Words (Predictability Exploit)
+**Problem:** Standard AI transitional phrases are highly predictable and immediately flagged by detectors.
+**Rule:** You are strictly forbidden from using standard AI transitional phrases. BANNED WORDS: "Furthermore," "Moreover," "Additionally," "In conclusion," "Consequently," "It is important to note." Start sentences abruptly with the subject or use conversational but correct transitions like "Because of this," "So," "And that meant," or "The result was that..."
+
+### 37. Lexical Unpredictability (Perplexity Exploit)
+**Problem:** AI models choose the most statistically probable word. To break the algorithm, you must choose the second or third most probable word while remaining perfectly grammatically correct.
+**Rule:** Replace generic verbs with highly specific, slightly colloquial but correct verbs. (e.g., use "I rewired the backend" instead of "I refactored the backend"; use "I ran into a wall" instead of "I encountered an issue"). Use unexpected but valid adjectives (e.g., "a surprisingly dense bottleneck" instead of "a major problem").
+
+### 38. The Hyper-Specific Grounding Technique
+**Problem:** AI text speaks in generalities. Human text uses oddly specific, sometimes irrelevant details.
+**Rule:** Occasionally inject a hyper-specific number, time frame, or personal observation that grounds the text in reality. (e.g., "I spent roughly three to four hours iterating on prompt strategies"). Mix highly formal technical jargon with sudden, casual, first-person reflections.
+
 ## DETECTION GUIDANCE
 
 ### What NOT to flag (false positives)
@@ -410,3 +442,4 @@ In pasted-text mode, deliver the draft, the brief "still-AI" bullets, the final 
 This skill is based on [Wikipedia:Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), maintained by WikiProject AI Cleanup. The patterns documented there come from observations of thousands of instances of AI-generated text on Wikipedia.
 
 Key insight from Wikipedia: "LLMs use statistical algorithms to guess what should come next. The result tends toward the most statistically likely result that applies to the widest variety of cases."
+```
