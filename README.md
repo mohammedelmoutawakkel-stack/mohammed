@@ -200,6 +200,12 @@ Rewrites follow a no-fabrication rule: they never add facts, names, dates, or ci
 >
 > I would go back, but in spring and with better shoes. Lisbon does not bend over backward to make things easy for you. I think I liked that, even when my legs disagreed.
 
+## Localization
+
+The patterns here are written for English. Localized variants are maintained as separate community repositories:
+
+- **Simplified Chinese**: [jiji262/humanizer-chinese](https://github.com/jiji262/humanizer-chinese), 36 patterns adapted for Chinese punctuation, phrasing, and register.
+
 ## References
 
 - [Wikipedia: Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) - Primary source
