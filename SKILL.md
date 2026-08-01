@@ -9,7 +9,7 @@ description: |
   voice, negative parallelisms, and filler phrases.
 license: MIT
 metadata:
-  version: "2.9.1"
+  version: "2.10.0"
 ---
 
 # Humanizer: Remove AI Writing Patterns
@@ -351,6 +351,19 @@ Before returning the final rewrite, scan it for `—` and `–`. Any hit means t
 > Is it worth the price? Honestly? It depends on how often you'll use it.
 **After:**
 > Whether it's worth the price depends on how often you'll use it.
+
+### 34. Abrupt Idea Shifts
+
+**Signs to watch:** a paragraph or section changes subject before the relationship to the previous thread is stated; the reader's "why are we talking about this now" moment.
+**Problem:** LLMs often introduce a new idea without establishing how it relates to what came before. The prose may be clear sentence by sentence, but a cold reader cannot explain why the new idea follows. This is distinct from signposting announcements (§28), fragmented headers (§29), and diff-anchored writing (§30): the tell is the missing relationship itself, not an announcement, a restating lead-in, or change-narration. Repair by adding the missing relationship before or immediately after the new idea, moving the idea where it belongs, or removing it if it does not serve the piece.
+**Before:**
+> Smaller instruction files are easier for an agent to retrieve at the right moment.
+>
+> Teams also need reliable evaluation datasets.
+**After:**
+> Smaller instruction files are easier for an agent to retrieve at the right moment. But retrieval is only half the problem: teams still need evaluation datasets to tell whether the agent used those instructions correctly.
+
+**Test:** Ask whether a cold reader can explain why this idea follows the previous one using only the published text. If yes, preserve the transition; do not add hand-holding. If no, add the missing relationship, reorder, or cut. Deliberate hard cuts, scene changes, and section boundaries are valid when the relationship is inferable or the break serves the form.
 
 ## DETECTION GUIDANCE
 
