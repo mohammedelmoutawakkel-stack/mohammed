@@ -9,7 +9,7 @@ description: |
   voice, negative parallelisms, and filler phrases.
 license: MIT
 metadata:
-  version: "2.9.1"
+  version: "2.10.0"
 ---
 
 # Humanizer: Remove AI Writing Patterns
@@ -352,6 +352,15 @@ Before returning the final rewrite, scan it for `—` and `–`. Any hit means t
 **After:**
 > Whether it's worth the price depends on how often you'll use it.
 
+### 34. Invisible-Context Defenses
+
+**Phrases to watch:** This isn't mainly about X, I'm not arguing that Y, I'm not trying to Z, You could categorize this another way but, To be clear, I'm not saying
+**Problem:** During iterative editing, a model carries abandoned objections and alternative framings from the drafting conversation into the final prose. The reader never saw that context, so the text defends against or distinguishes from points nobody raised. The test: would a cold reader arrive at the objection from the published text alone? If yes, engage it directly. If it exists only because it surfaced while drafting, cut the defense.
+**Before:**
+> This isn't mainly about prompt length, and I'm not arguing that documentation doesn't matter. You could categorize the problem another way, but the issue is whether the agent can use the instruction when it acts.
+**After:**
+> The issue is whether the agent can use the instruction when it acts.
+
 ## DETECTION GUIDANCE
 
 ### What NOT to flag (false positives)
@@ -371,6 +380,7 @@ A clean human writer can hit several of the patterns above without any AI involv
 - **Unsourced claims.** Most of the web is unsourced. Lack of citations doesn't prove anything.
 - **Correct, complex formatting.** Visual editors and templates produce clean output without any AI.
 - **Secondhand text.** Do not rewrite watched phrases inside quotations, titles, proper names, or examples where the phrase is being discussed rather than used.
+- **Objections a cold reader would raise on their own.** Answering an obvious or well-established counterpoint can strengthen an argument. Only cut defenses that make sense *solely* with access to the discarded drafting conversation (see §34).
 
 When in doubt, look for **clusters** of tells, not isolated ones. A single em dash means nothing; em dashes plus rule-of-three plus *vibrant tapestry* plus a "Conclusion" section is a confession.
 
