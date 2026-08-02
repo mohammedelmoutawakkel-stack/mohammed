@@ -55,6 +55,61 @@ readme_numbers = {
 if readme_numbers != set(range(1, 34)):
     raise SystemExit("README pattern table must contain patterns 1-33")
 
+# Language packs: each languages/<code>.md is self-describing, and the registry
+packs = sorted(
+    path
+    for path in (ROOT / "languages").glob("*.md")
+    if not path.name.startswith("_") and path.name != "TEMPLATE.md"
+)
+if not packs:
+    raise SystemExit("No language packs found under languages/")
+
+for pack in packs:
+    text = pack.read_text()
+    header = require(
+        re.match(r"\A---\n(.*?)\n---\n", text, re.DOTALL),
+        f"{pack.name} must start with YAML frontmatter",
+    ).group(1)
+    code = require(
+        re.search(r"(?m)^code:\s*(\S+)\s*$", header), f"{pack.name} is missing code:"
+    ).group(1)
+    prefix, first, last = require(
+        re.search(r"(?m)^patterns:\s*([A-Z]+)([0-9]+)-[A-Z]+([0-9]+)\s*$", header),
+        f"{pack.name} is missing a patterns: range like AR1-AR14",
+    ).groups()
+    expected = list(range(int(first), int(last) + 1))
+
+    if code != pack.stem:
+        raise SystemExit(f"{pack.name}: code '{code}' does not match the filename")
+
+    found = [
+        int(number)
+        for number in re.findall(rf"(?m)^### {prefix}([0-9]+)\. ", text)
+    ]
+    if found != expected:
+        raise SystemExit(f"{pack.name}: expected {prefix}{first}-{prefix}{last}, found {found}")
+
+    if not re.search(rf"(?m)^\| {re.escape(code)} \|.*`languages/{pack.name}`", SKILL):
+        raise SystemExit(f"SKILL.md language registry is missing a row for {pack.name}")
+
+    in_readme = {
+        int(number) for number in re.findall(rf"(?m)^\| {prefix}([0-9]+) \|", README)
+    }
+    if in_readme != set(expected):
+        raise SystemExit(
+            f"README pattern table must contain {prefix}{first}-{prefix}{last} for {pack.name}"
+        )
+
+    if len(text.splitlines()) > 250:
+        raise SystemExit(f"{pack.name} exceeds the 250-line language pack budget")
+
+registry_rows = set(re.findall(r"(?m)^\| ([a-z]{2,3}) \| .* \| `languages/", SKILL))
+if registry_rows != {pack.stem for pack in packs}:
+    raise SystemExit(
+        f"SKILL.md registry {sorted(registry_rows)} does not match packs "
+        f"{sorted(pack.stem for pack in packs)}"
+    )
+
 if len(SKILL.splitlines()) > 500:
     raise SystemExit("SKILL.md exceeds the 500-line portability budget")
 

@@ -6,10 +6,12 @@ description: |
   comprehensive "Signs of AI writing" guide. Detects and fixes patterns including:
   inflated symbolism, promotional language, superficial -ing analyses, vague
   attributions, em dash overuse, rule of three, AI vocabulary words, passive
-  voice, negative parallelisms, and filler phrases.
+  voice, negative parallelisms, and filler phrases. Works in the language of the
+  source text, with pluggable language packs for language-specific tells
+  (Arabic / العربية available today).
 license: MIT
 metadata:
-  version: "2.9.1"
+  version: "2.10.0"
 ---
 
 # Humanizer: Remove AI Writing Patterns
@@ -25,7 +27,7 @@ When given text to humanize:
 3. **Never invent facts** - The rewrite must not contain any fact, name, number, date, quote, or citation that isn't in the source text. Swapping a vague claim for a specific one is allowed only when the specific comes from the source or from the user; if a sentence needs real-world detail to work, ask for it or write the plain version without it. Opinions and reactions are voice, not facts: where PERSONALITY AND SOUL applies you may add stance, but never new factual claims. (In fiction, invented detail is the job. This rule governs everything else.)
 4. **Match the voice** - Fit the intended tone (formal, casual, technical). Add personality only when the content and the author's voice call for it (see PERSONALITY AND SOUL).
 
-How you're invoked changes what you deliver (see Invocation Modes). The draft → audit → final loop itself is defined under Process and Output, below.
+How you're invoked changes what you deliver (see Invocation Modes). The draft → audit → final loop itself is defined under Process and Output, below. If the text is mostly Arabic, apply ARABIC MODE on top of everything here and stay in Arabic throughout.
 
 ## Voice Calibration
 
@@ -388,6 +390,29 @@ When you see these, lean toward leaving the prose alone — they are evidence of
 
 ---
 
+## LANGUAGE PACKS
+
+Patterns 1-33 above are language-neutral in intent but written with English examples. Every language has its own AI tells, so language-specific detail lives in separate packs rather than in this file.
+
+**When the text is not mostly English:**
+
+1. Identify the language of the source text.
+2. If a pack exists for it (registry below), read that file and apply it on top of patterns 1-33. The path is relative to this file's own directory. If a direct read fails, look for the pack under the skill directory before giving up, for example `find . -name ar.md -path '*languages*'` or the equivalent search in your harness.
+3. Work and deliver entirely in that language. Do not translate to English, rewrite, and translate back; that round trip is what produces translationese. Audit bullets and change summaries go in the source language too.
+4. Match the source's register and variety, including dialects and regional spelling. Never "upgrade" a dialect or a colloquial register into the standard one. That upgrade is itself an AI tell.
+5. Use that language's own punctuation, quotation marks, and numerals, following the source.
+6. If no pack exists for the language, still follow steps 3-5 and apply patterns 1-33 by intent rather than by literal English wording.
+
+**Registry:**
+
+| Code | Language | Pack | Patterns |
+|------|----------|------|----------|
+| ar | Arabic (العربية) | `languages/ar.md` | AR1-AR14 |
+
+If you have no way to read files at all, or the pack is genuinely missing (some harnesses install only this file), say so once in the source language and continue with steps 3-6. Degraded is fine; silently skipping the pack while claiming full coverage is not.
+
+---
+
 ## Invocation Modes
 
 **Pasted text (default).** The user gives text in the conversation. Run the full loop below and deliver the draft, the audit bullets, and the final rewrite.
@@ -400,7 +425,7 @@ When you see these, lean toward leaving the prose alone — they are evidence of
 
 1. Read the input carefully and identify every instance of the patterns above.
 2. Write a **draft rewrite**. Check that it reads naturally aloud, varies sentence length, prefers specific details and simple constructions (is/are/has), and keeps the appropriate register.
-3. Ask two questions: **"What makes the below so obviously AI generated?"** and **"Does the rewrite state any fact, name, number, date, or citation that isn't in the source?"** Answer briefly. A fabrication is a defect even when it sounds more human than the vague original.
+3. Ask two questions (in Arabic when the text is Arabic: **"ما الذي يجعل هذا النص يبدو مولَّداً بالذكاء الاصطناعي؟"**): **"What makes the below so obviously AI generated?"** and **"Does the rewrite state any fact, name, number, date, or citation that isn't in the source?"** Answer briefly. A fabrication is a defect even when it sounds more human than the vague original.
 4. Revise into a **final rewrite** that addresses them and contains no em or en dashes (see §14).
 
 In pasted-text mode, deliver the draft, the brief "still-AI" bullets, the final rewrite, and (optionally) a short summary of changes. In file and embedded modes, run the same loop but deliver only what the mode calls for (see Invocation Modes).

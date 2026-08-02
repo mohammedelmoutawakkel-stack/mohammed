@@ -60,7 +60,10 @@ Or, if you already have this repo cloned:
 ```bash
 mkdir -p /path/to/your/skills/humanizer
 cp SKILL.md /path/to/your/skills/humanizer/
+cp -r languages /path/to/your/skills/humanizer/
 ```
+
+`SKILL.md` works on its own. Copy `languages/` too if you write in a language that has a pack; the skill loads the pack on demand and degrades to its language-neutral rules when the directory isn't there.
 
 ## Usage
 
@@ -170,6 +173,41 @@ Rewrites follow a no-fabrication rule: they never add facts, names, dates, or ci
 | 24 | **Excessive hedging** | "could potentially possibly" | "may" |
 | 25 | **Generic conclusions** | "The future looks bright" | Specific plans or facts |
 
+## Language Packs
+
+The 33 patterns above are documented with English examples. Other languages have their own AI tells, so each one lives in its own pack under [languages/](languages/) instead of bloating the runtime prompt. `SKILL.md` carries a small registry and loads a pack only when the text is in that language.
+
+Whatever language you write in, pack or no pack, the skill edits in that language rather than translating to English and back, keeps the source's register and variety, and uses that language's punctuation and numerals.
+
+| Code | Language | Pack | Patterns |
+|------|----------|------|----------|
+| ar | Arabic (العربية) | [languages/ar.md](languages/ar.md) | AR1-AR14 |
+
+Adding a language is a drop-in: copy [languages/TEMPLATE.md](languages/TEMPLATE.md) to `languages/<code>.md`, fill in the patterns, add one row to the registry in `SKILL.md` and one table here. The validator checks that the three stay in sync.
+
+### Arabic (العربية)
+
+The Arabic pack matches the source register: modern MSA (فصحى معاصرة) by default, and the source's dialect (خليجي، نجدي، مصري، شامي، مغربي، عراقي، سوداني، يمني) when the source is written in one. It never "upgrades" dialect into فصحى, because that upgrade is itself an AI tell.
+
+| # | Pattern | Before | After |
+|---|---------|--------|-------|
+| AR1 | **تضخيم الأهمية والإرث** | "نقطة تحوّل فارقة... بصمة لا تُمحى" | "افتُتحت المكتبة عام 1989" |
+| AR2 | **اللغة الترويجية** | "جوهرة معمارية تزخر بتاريخ عريق" | "مدينة تاريخية" |
+| AR3 | **ذيول "مما يعكس"** | "...، مما يعكس التوجّه ويسهم في تعزيز" | احذف الذيل التفسيري |
+| AR4 | **تجنّب الجملة الاسمية** | "يُعتبر / يمثّل / يشكّل / يحظى بـ" | الجملة الاسمية المباشرة |
+| AR5 | **"تم" و"قام بـ"** | "تم عقد الاجتماع، وقام الفريق بتقديم" | "انعقد الاجتماع، وقدّم الفريق" |
+| AR6 | **"حيث" و"الأمر الذي"** | "حيث أنّ... الأمر الذي..." | جمل منفصلة |
+| AR7 | **الروابط المقحمة** | "تجدر الإشارة، وفي هذا السياق، في إطار" | ابدأ بالمعلومة |
+| AR8 | **الترادف المزدوج** | "فريدة ومميزة، آمنة وموثوقة" | كلمة واحدة تكفي |
+| AR9 | **الخواتيم الوعظية** | "وفي الختام، يبقى الأمل معقوداً" | احذف الفقرة |
+| AR10 | **الترجمة الحرفية** | "في نهاية اليوم، يلعب دوراً حاسماً" | تعبير عربي طبيعي |
+| AR11 | **سلاسل الإضافة** | "عملية تطوير آليات تحسين جودة الأداء" | "الهدف تحسين جودة الأداء" |
+| AR12 | **الاستهلال الخطابي** | "عزيزي القارئ، سؤال يطرح نفسه" | ابدأ بالمحتوى |
+| AR13 | **الترقيم والرسم الإملائي** | "انتهى? نعم — في 2024," | "انتهى؟ نعم، في 2024،" |
+| AR14 | **رتابة الإيقاع و"إنّ"** | "إنّ... وإنّ... وإنّ..." | تنويع الطول وكسر السلسلة |
+
+The skill also protects Arabic false positives: Quranic verses, hadith, poetry, proverbs, religious formulas (إن شاء الله، رحمه الله), deliberate rhymed prose, long waw-coordinated sentences, and uneven hamza/taa-marbuta spelling all stay as the author wrote them.
+
 ## Full Example
 
 *(Illustration note: the rewrite below adds specifics, like the month and the neighborhoods, that stand in for details the author would supply. In a real session those come from the user; the skill asks rather than invents.)*
@@ -207,6 +245,7 @@ Rewrites follow a no-fabrication rule: they never add facts, names, dates, or ci
 
 ## Version History
 
+- **2.10.0** - Added multilingual support through pluggable language packs. `SKILL.md` now carries language-neutral rules (edit in the source language instead of round-tripping through English, match the source register and variety, use its punctuation and numerals) plus a small registry, and loads `languages/<code>.md` on demand. First pack: Arabic (`languages/ar.md`, patterns AR1-AR14) covering "مما يعكس" tails, "تم/قام بـ" bloat, "حيث" as universal glue, doubled synonyms, sermon-like endings, calqued idiom, noun-chain إضافات, Arabic punctuation and stray tashkeel, and uniform "إنّ"-led rhythm, with dialect-aware register matching and guards so quoted scripture, poetry, religious formulas, and deliberate سجع are never rewritten. Adding a language is now a drop-in file plus two table rows; the validator discovers packs automatically. Still 33 core patterns.
 - **2.9.1** - Improved distribution and portability: removed nonportable frontmatter and tool preapprovals, made global installation the documented default, added package validation, and removed the duplicated long-form example from the runtime prompt. No change to the 33 patterns.
 - **2.9.0** - Added a no-fabrication rule: rewrites may not invent facts, names, dates, or citations not present in the source, and every example that modeled invented specifics was re-cut to use only source information (fixes #187). Replaced paragraph-count parity with an information-over-shape rule, made a user's voice sample outrank the em dash ban, and added invocation modes (pasted text / file / embedded). No change to the 33 patterns.
 - **2.8.3** - Moved the skill version from the unsupported top-level frontmatter key to `metadata.version` for Agent Skills and Claude compatibility. No change to the 33 patterns.
