@@ -9,7 +9,7 @@ description: |
   voice, negative parallelisms, and filler phrases.
 license: MIT
 metadata:
-  version: "2.9.1"
+  version: "2.9.2"
 ---
 
 # Humanizer: Remove AI Writing Patterns
@@ -145,12 +145,18 @@ When voice is appropriate, avoid uniform sentence structures, bloodless neutrali
 **After:**
 > The event includes talks and panels. There's also time for informal networking between sessions.
 
-### 11. Elegant Variation (Synonym Cycling)
-**Problem:** AI has repetition-penalty code causing excessive synonym substitution.
-**Before:**
+### 11. Elegant Variation and Repeated Sentence Openings
+**Problem:** AI has repetition-penalty code causing excessive synonym substitution. The same machinery misses in the other direction in narrative prose, where consecutive sentences all open on the same subject, usually a pronoun, and nothing varies where the sentence starts. Both are one defect: the model is managing repetition by rule instead of by ear. Cure over-variation by settling on a single referent. Cure under-variation by merging the sentences, by giving the subject role to something other than the character, or by opening on the action so the pronoun arrives later.
+**Before (synonym cycling):**
 > The protagonist faces many challenges. The main character must overcome obstacles. The central figure eventually triumphs. The hero returns home.
 **After:**
 > The protagonist faces many challenges but eventually triumphs and returns home.
+**Before (repeated openings):**
+> She noted the door. She noted the lock on it. She filed both away.
+**After:**
+> She noted the door and its lock, then filed both away.
+
+The fix is not banning the repeated word. A run of three sentences becoming one is what removes the tell; the survivor may still start with "She."
 
 ### 12. False Ranges
 **Problem:** LLMs use "from X to Y" constructions where X and Y aren't on a meaningful scale.
@@ -367,6 +373,7 @@ A clean human writer can hit several of the patterns above without any AI involv
 - **Curly quotes alone.** macOS, Word, Google Docs, and most CMSes auto-curl by default. Curly quotes only count when stacked with other tells.
 - **Em dashes alone.** Many editors and journalists use them often. Em dashes are evidence only when paired with formulaic sales-y rhythm.
 - **One short emphatic sentence.** Humans use clipped sentences to land a point. Flag staccato drama only when several short fragments appear in a row and inflate the tone.
+- **Deliberate anaphora.** Repeating a sentence opening on purpose is an old device, and good prose uses it to build cadence or pressure ("She came. She saw. She conquered."). Flag a repeated opening only when the run does no rhetorical work and reads as the model failing to vary rather than a writer choosing.
 - **"Honestly" or "look" mid-sentence.** These are ordinary in casual writing. The tell is the standalone theatrical opener, not the word itself.
 - **Unsourced claims.** Most of the web is unsourced. Lack of citations doesn't prove anything.
 - **Correct, complex formatting.** Visual editors and templates produce clean output without any AI.

@@ -131,7 +131,7 @@ Rewrites follow a no-fabrication rule: they never add facts, names, dates, or ci
 | 8 | **Copula avoidance** | "serves as... features... boasts" | "is... has" |
 | 9 | **Negative parallelisms / tailing negations** | "It's not just X, it's Y", "..., no guessing" | State the point directly |
 | 10 | **Rule of three** | "innovation, inspiration, and insights" | Use natural number of items |
-| 11 | **Synonym cycling** | "protagonist... main character... central figure... hero" | "protagonist" (repeat when clearest) |
+| 11 | **Synonym cycling / repeated openings** | "protagonist... main character... hero" or "She noted... She noted... She filed..." | Settle on one referent; merge the repeated run |
 | 12 | **False ranges** | "from the Big Bang to dark matter" | List topics directly |
 | 13 | **Passive voice / subjectless fragments** | "No configuration file needed" | Name the actor when it helps clarity |
 
@@ -207,6 +207,7 @@ Rewrites follow a no-fabrication rule: they never add facts, names, dates, or ci
 
 ## Version History
 
+- **2.9.2** - Extended pattern #11 to cover the opposite of synonym cycling: consecutive sentences that all open on the same subject, usually a pronoun, with the merge, subject-shift, and action-first fixes and a narrative example. Added a deliberate-anaphora false-positive guard so rhetorical repetition is left alone (fixes #206). No change to the 33 patterns.
 - **2.9.1** - Improved distribution and portability: removed nonportable frontmatter and tool preapprovals, made global installation the documented default, added package validation, and removed the duplicated long-form example from the runtime prompt. No change to the 33 patterns.
 - **2.9.0** - Added a no-fabrication rule: rewrites may not invent facts, names, dates, or citations not present in the source, and every example that modeled invented specifics was re-cut to use only source information (fixes #187). Replaced paragraph-count parity with an information-over-shape rule, made a user's voice sample outrank the em dash ban, and added invocation modes (pasted text / file / embedded). No change to the 33 patterns.
 - **2.8.3** - Moved the skill version from the unsupported top-level frontmatter key to `metadata.version` for Agent Skills and Claude compatibility. No change to the 33 patterns.
