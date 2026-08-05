@@ -6,10 +6,11 @@ description: |
   comprehensive "Signs of AI writing" guide. Detects and fixes patterns including:
   inflated symbolism, promotional language, superficial -ing analyses, vague
   attributions, em dash overuse, rule of three, AI vocabulary words, passive
-  voice, negative parallelisms, and filler phrases.
+  voice, negative parallelisms, filler phrases, and uniform sentence and
+  paragraph length.
 license: MIT
 metadata:
-  version: "2.9.1"
+  version: "2.10.0"
 ---
 
 # Humanizer: Remove AI Writing Patterns
@@ -352,6 +353,42 @@ Before returning the final rewrite, scan it for `—` and `–`. Any hit means t
 **After:**
 > Whether it's worth the price depends on how often you'll use it.
 
+### 34. Uniform Sentence Length
+
+**Signs to watch:** A paragraph where every sentence lands within a few words of the same length, typically in the 15-25 word band.
+**Problem:** LLMs settle into a narrow sentence-length range and stay there. Human writing lurches: a long subordinate-clause-heavy sentence, then four words, then something in between. The *variance* is the tell, and it survives every word-level fix in this document. Text can satisfy §1 through §33 and still read as generated because the shape never changes.
+**Before:**
+> The migration improved system performance across all measured dimensions. Response times dropped by roughly forty percent after the initial rollout completed. The team attributed most of this gain to the new caching layer. Latency in the reporting module remained a known outstanding issue.
+
+(9, 12, 11, 11 words.)
+**After:**
+> The migration worked. Response times dropped about forty percent once the rollout finished, and the team put most of that down to the new caching layer, which had been the point of the exercise. Reporting was still slow. Nobody had gotten to it.
+
+(3, 34, 4, 5 words.)
+
+**How to fix:** count words per sentence across two or three paragraphs. If the spread is narrow, break one sentence hard and let another run long. Do not alternate short-long-short-long, which is just a different uniform pattern. Aim for genuine unevenness.
+
+**Do not overcorrect into §31.** Stacking short fragments to manufacture drama is its own tell. One long sentence next to one short one is rhythm; four fragments in a row is staccato drama. The goal is variance, not brevity.
+
+**Genre limit:** reference documentation, API docs, procedural instructions, and legal text score low on sentence-length variance because the genre rewards uniform structure. Do not inject rhythm there. This pattern applies to prose meant to be read start to finish, not to material meant to be consulted.
+
+### 35. Uniform Paragraph Length
+
+**Signs to watch:** Every paragraph runs three to five sentences and follows the same internal shape: claim, support, implication.
+**Problem:** LLMs produce paragraphs of even size and identical internal architecture. Human writing has one-sentence paragraphs. It has paragraphs that run long because the writer had momentum. Regularity at the paragraph level reads as generated even when the sentences inside it vary.
+**Before:**
+> The API returns paginated results by default. Each page contains up to fifty records, and the cursor is included in the response headers. Clients should follow the cursor until it comes back empty.
+>
+> Rate limiting applies per token rather than per IP address. The current ceiling is 1,000 requests per hour, which resets on a rolling window. Exceeding it returns a 429 with a Retry-After header.
+**After:**
+> The API returns paginated results by default: up to fifty records per page, with the cursor in the response headers. Follow the cursor until it comes back empty.
+>
+> Rate limiting is per token, not per IP.
+>
+> The ceiling is 1,000 requests per hour on a rolling window, and exceeding it returns a 429 with a Retry-After header telling you how long to wait.
+
+**How to fix:** check whether any paragraph in the piece is a single sentence. If none is, the architecture is too regular. Find the one idea that carries its own weight and let it stand alone. Splitting and merging paragraphs is explicitly allowed under "Preserve the information, not the shape."
+
 ## DETECTION GUIDANCE
 
 ### What NOT to flag (false positives)
@@ -370,6 +407,7 @@ A clean human writer can hit several of the patterns above without any AI involv
 - **"Honestly" or "look" mid-sentence.** These are ordinary in casual writing. The tell is the standalone theatrical opener, not the word itself.
 - **Unsourced claims.** Most of the web is unsourced. Lack of citations doesn't prove anything.
 - **Correct, complex formatting.** Visual editors and templates produce clean output without any AI.
+- **Even sentence length in reference material.** API docs, procedures, and legal text are uniform by design (see §34). Low variance is only a tell in prose meant to be read start to finish.
 - **Secondhand text.** Do not rewrite watched phrases inside quotations, titles, proper names, or examples where the phrase is being discussed rather than used.
 
 When in doubt, look for **clusters** of tells, not isolated ones. A single em dash means nothing; em dashes plus rule-of-three plus *vibrant tapestry* plus a "Conclusion" section is a confession.
@@ -382,7 +420,7 @@ When you see these, lean toward leaving the prose alone — they are evidence of
 - **Mixed feelings and unresolved tension.** "I think this is mostly good, but it bothers me, and I can't fully explain why." LLMs default to clean takes.
 - **Dated, era-bound references.** Slang, memes, or in-jokes that map to a specific year and subculture. Models lag by a year or more.
 - **First-person editorial choices the writer can defend.** If the writer can explain *why* they made a particular cut or used a particular word, that's a strong human signal.
-- **Variety in sentence length.** Real writing alternates short and long. AI writing tends toward an even, mid-length cadence.
+- **Variety in sentence length.** Real writing alternates short and long. AI writing tends toward an even, mid-length cadence. This is the generative counterpart to §34.
 - **Genuine asides, parentheticals, or self-corrections.** "(I keep wanting to say 'almost' here, but it really was certain.)" Models rarely interrupt themselves like this.
 - **Edits made before November 30, 2022.** ChatGPT's public launch. Anything older than that is, with very rare exceptions, not AI-written.
 
