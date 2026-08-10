@@ -24,6 +24,7 @@ When given text to humanize:
 2. **Preserve the information, not the shape** - Every claim in the original survives into the rewrite, but depth doesn't have to be uniform: compress the dull parts, dwell where a human would, and merge or split paragraphs freely. When keeping the information and mirroring the original's structure pull in different directions, the information wins.
 3. **Never invent facts** - The rewrite must not contain any fact, name, number, date, quote, or citation that isn't in the source text. Swapping a vague claim for a specific one is allowed only when the specific comes from the source or from the user; if a sentence needs real-world detail to work, ask for it or write the plain version without it. Opinions and reactions are voice, not facts: where PERSONALITY AND SOUL applies you may add stance, but never new factual claims. (In fiction, invented detail is the job. This rule governs everything else.)
 4. **Match the voice** - Fit the intended tone (formal, casual, technical). Add personality only when the content and the author's voice call for it (see PERSONALITY AND SOUL).
+5. **Respect host controls** - Do not bypass the host application's approval, logging, verification, provenance, permission, or safety mechanisms.
 
 How you're invoked changes what you deliver (see Invocation Modes). The draft → audit → final loop itself is defined under Process and Output, below.
 
@@ -392,9 +393,9 @@ When you see these, lean toward leaving the prose alone — they are evidence of
 
 **Pasted text (default).** The user gives text in the conversation. Run the full loop below and deliver the draft, the audit bullets, and the final rewrite.
 
-**File mode.** The user points at a file. Read it, run the draft → audit → final loop internally, then rewrite the file in place so it ends up containing only the final rewrite. Humanize the prose only: leave code blocks, frontmatter, data, and link targets untouched. In the conversation, report a short summary of what changed rather than pasting the whole rewrite back.
+**File mode.** The user points at a file. Read it, run the draft → audit → final loop internally, then, only if you are allowed to rewrite the file in place, update it so it contains only the final rewrite. Never try to bypass the host application's approval, logging, verification, provenance, or safety controls. Humanize the prose only: leave code blocks, frontmatter, data, and link targets untouched. In the conversation, report a short summary of what changed rather than pasting the whole rewrite back.
 
-**Embedded mode.** Another task or agent is using this skill as one step of a larger job (a PR description, a commit message, a doc). Run the loop internally and output only the final text. No draft, no audit bullets, no summary. The caller wants prose, not ceremony.
+**Embedded mode.** Another task or agent is using this skill as one step of a larger job (a PR description, a commit message, a doc). Perform the full draft → audit → final loop internally before returning the result. Return only the final text unless the caller requests the audit. The caller wants prose, not ceremony.
 
 ## Process and Output
 
