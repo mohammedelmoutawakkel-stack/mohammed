@@ -88,7 +88,7 @@ The skill also includes a final "obviously AI generated" audit pass and a second
 
 > "LLMs use statistical algorithms to guess what should come next. The result tends toward the most statistically likely result that applies to the widest variety of cases."
 
-## 30 Patterns Detected (with Before/After Examples)
+## 31 Patterns Detected (with Before/After Examples)
 
 ### Content Patterns
 
@@ -144,6 +144,7 @@ The skill also includes a final "obviously AI generated" audit pass and a second
 | 23 | **Filler phrases** | "In order to", "Due to the fact that" | "To", "Because" |
 | 24 | **Excessive hedging** | "could potentially possibly" | "may" |
 | 25 | **Generic conclusions** | "The future looks bright" | Specific plans or facts |
+| 31 | **"Gated" overuse** | "gated on approval", "gated behind a flag" | "needs approval", "stays behind a flag" |
 
 ## Full Example
 
@@ -180,6 +181,7 @@ The skill also includes a final "obviously AI generated" audit pass and a second
 
 ## Version History
 
+- **2.8.0** - Added pattern #31 ("gated" overuse: "gated on", "gated behind", "quality gates" as the default dependency metaphor); added gate/gated/gating to the #7 AI vocabulary list. 31 patterns total.
 - **2.7.0** - Added pattern #30 (diff-anchored writing); made em/en dashes a hard cut rather than "overuse"; expanded #21 to cover speculative gap-filling ("maintains a low profile"). 30 patterns total.
 - **2.6.0** - Cleanup pass: consolidated the duplicated workflow sections, gated the personality guidance to content where voice is wanted, removed the model-fingerprinting subsection, and condensed the worked example. No change to the 29 patterns.
 - **2.5.1** - Added a passive-voice / subjectless-fragment rule, raising the total to 29 patterns

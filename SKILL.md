@@ -1,6 +1,6 @@
 ---
 name: humanizer
-version: 2.7.0
+version: 2.8.0
 description: |
   Remove signs of AI-generated writing from text. Use when editing or reviewing
   text to make it sound more natural and human-written. Based on Wikipedia's
@@ -169,7 +169,7 @@ Avoiding AI patterns is only half the job. Sterile, voiceless writing is just as
 
 ### 7. Overused "AI Vocabulary" Words
 
-**High-frequency AI words:** Actually, additionally, align with, crucial, delve, emphasizing, enduring, enhance, fostering, garner, highlight (verb), interplay, intricate/intricacies, key (adjective), landscape (abstract noun), pivotal, showcase, tapestry (abstract noun), testament, underscore (verb), valuable, vibrant
+**High-frequency AI words:** Actually, additionally, align with, crucial, delve, emphasizing, enduring, enhance, fostering, garner, gate/gated/gating (figurative, see §31), highlight (verb), interplay, intricate/intricacies, key (adjective), landscape (abstract noun), pivotal, showcase, tapestry (abstract noun), testament, underscore (verb), valuable, vibrant
 
 **Problem:** These words appear far more frequently in post-2023 text. They often co-occur.
 
@@ -481,6 +481,19 @@ Before returning the final rewrite, scan it for `—` and `–`. Any hit means t
 
 **After:**
 > This function uses a hash map for O(1) lookups, avoiding the O(n²) cost of naive iteration.
+
+
+### 31. "Gated" Overuse
+
+**Words to watch:** gated on, gate (verb), gating, gated behind, gated by, quality gate(s)
+
+**Problem:** In design and process prose, LLMs reach for "gate" as the default dependency metaphor: every step is "gated on" approval, features are "gated behind" flags, releases pass through "quality gates." One "gate" in an established technical sense (a CI quality gate, feature gating in a codebase that already uses the term) is normal vocabulary. Several per document, or "gated on" applied to ordinary prerequisites, is a tell. Say what actually happens: needs, requires, waits for, depends on, blocks, can't start until.
+
+**Before:**
+> The rollout is gated on legal sign-off. Each phase gates the next, and the beta features are gated behind a flag until the launch review gates them into production.
+
+**After:**
+> The rollout can't start until legal signs off. Each phase must finish before the next begins, and the beta features stay behind a flag until the launch review approves them.
 
 
 ## DETECTION GUIDANCE
