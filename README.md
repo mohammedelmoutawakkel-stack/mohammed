@@ -200,6 +200,10 @@ Rewrites follow a no-fabrication rule: they never add facts, names, dates, or ci
 >
 > I would go back, but in spring and with better shoes. Lisbon does not bend over backward to make things easy for you. I think I liked that, even when my legs disagreed.
 
+## Adaptations
+
+- [humanizer-ko](https://github.com/IsaacEryn/humanizer-ko) - Korean. The 33 patterns are redesigned for Korean text rather than translated: English-only tells (Title Case headings, hyphenated word pairs, curly quotes) are replaced with Korean-specific ones such as double passives, translationese, and speech-level mixing, and the false-positive guidance follows Korean writing conventions.
+
 ## References
 
 - [Wikipedia: Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) - Primary source
