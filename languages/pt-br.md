@@ -2,6 +2,8 @@
 
 Use alongside `SKILL.md`, referenced from its Voice Calibration section. The English "words to watch" lists in `SKILL.md` are illustrations of an underlying rhetorical move, not a literal vocabulary to translate — the moves show up in Brazilian Portuguese as different stock phrases entirely. This file lists the actual PT-BR phrasing and register conventions to watch for.
 
+**Note on sourcing:** `SKILL.md` is based on Wikipedia's ["Signs of AI writing"](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) guide, compiled by WikiProject AI Cleanup from editors' hands-on review of flagged AI-generated articles. No Portuguese-language equivalent of that guide exists on Wikipedia (checked interlanguage links as of 2026-08; translated versions exist for German, Finnish, French, Hebrew, Russian, Thai, and Chinese, but not Portuguese). This file doesn't have a sourced guide to draw from — it's compiled the same way the original English guide started, from direct observation of PT-BR AI-writing tells, not translated from an existing study. Treat it as a starting point to refine, the same way the English guide has been refined through ongoing review since 2023.
+
 ## AI-flavored vocabulary and phrasing
 
 Parallels `SKILL.md` §1 (significance inflation), §5 (vague attributions), §7 (AI vocabulary), §21 (cutoff/gap-filling), §27 (persuasive tropes).
