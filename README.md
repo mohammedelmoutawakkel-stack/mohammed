@@ -147,7 +147,7 @@ Rewrites follow a no-fabrication rule: they never add facts, names, dates, or ci
 | 19 | **Curly quotes** | `said “the project”` | `said "the project"` |
 | 26 | **Hyphenated word pairs** | “cross-functional, data-driven, client-facing” | Drop hyphens on common word pairs |
 | 27 | **Persuasive authority tropes** | "At its core, what matters is..." | State the point directly |
-| 28 | **Signposting announcements** | "Let's dive in", "Here's what you need to know" | Start with the content |
+| 28 | **Signposting announcements** | "Let's dive in", or casual "one thing that bit me, heads up on X" | Start with the content, drop the announcement entirely |
 | 29 | **Fragmented headers** | "## Performance" + "Speed matters." | Let the heading do the work |
 | 30 | **Diff-anchored writing** | "This function was added to replace..." | Describe what it does, not what changed |
 | 31 | **Manufactured punchlines / staccato drama** | "It had no preference. No prior. No nostalgia." | Use varied sentence lengths and concrete claims |
@@ -207,6 +207,7 @@ Rewrites follow a no-fabrication rule: they never add facts, names, dates, or ci
 
 ## Version History
 
+- **2.9.2** - Broadened §28 (Signposting and Announcements) to name the tell as structural rather than a fixed list of formal phrases: a casual reword of the same announcement ("one thing that bit me, so heads up on X") is still the tell, not a fix. Added a casual-register Before/After pair. No change to the 33 patterns.
 - **2.9.1** - Improved distribution and portability: removed nonportable frontmatter and tool preapprovals, made global installation the documented default, added package validation, and removed the duplicated long-form example from the runtime prompt. No change to the 33 patterns.
 - **2.9.0** - Added a no-fabrication rule: rewrites may not invent facts, names, dates, or citations not present in the source, and every example that modeled invented specifics was re-cut to use only source information (fixes #187). Replaced paragraph-count parity with an information-over-shape rule, made a user's voice sample outrank the em dash ban, and added invocation modes (pasted text / file / embedded). No change to the 33 patterns.
 - **2.8.3** - Moved the skill version from the unsupported top-level frontmatter key to `metadata.version` for Agent Skills and Claude compatibility. No change to the 33 patterns.

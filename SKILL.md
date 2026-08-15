@@ -9,7 +9,7 @@ description: |
   voice, negative parallelisms, and filler phrases.
 license: MIT
 metadata:
-  version: "2.9.1"
+  version: "2.9.2"
 ---
 
 # Humanizer: Remove AI Writing Patterns
@@ -298,12 +298,16 @@ Before returning the final rewrite, scan it for `—` and `–`. Any hit means t
 
 ### 28. Signposting and Announcements
 
-**Phrases to watch:** Let's dive in, let's explore, let's break this down, here's what you need to know, now let's look at, without further ado
-**Problem:** LLMs announce what they are about to do instead of doing it. This meta-commentary slows the writing down and gives it a tutorial-script feel.
+**Phrases to watch:** Let's dive in, let's explore, let's break this down, here's what you need to know, now let's look at, without further ado. The tell is structural, not just formal: announcing what's about to be said or warned about instead of just saying it. That survives a casual reword just as easily — heads up, quick note, one thing that got me was X so watch out for Y, before I forget.
+**Problem:** LLMs announce what they are about to do instead of doing it. This meta-commentary slows the writing down and gives it a tutorial-script feel. Recasing the announcement into casual language ("one thing that bit me, so heads up on X") is not a fix, it's the same tell in different clothes — the announcement itself has to go, not just its formality.
 **Before:**
 > Let's dive into how caching works in Next.js. Here's what you need to know.
 **After:**
 > Next.js caches data at multiple layers, including request memoization, the data cache, and the router cache.
+**Before (casual register):**
+> One thing that bit me hard, so pay attention to this part: the webpack dev server doesn't send the CORS header by default.
+**After:**
+> The webpack dev server doesn't send the CORS header by default.
 
 ### 29. Fragmented Headers
 
