@@ -98,6 +98,10 @@ Now humanize this text:
 
 The skill will analyze your sentence rhythm, word choices, and quirks, then apply them to the rewrite instead of producing generic "clean" output.
 
+### Non-English text
+
+`SKILL.md`'s patterns are documented with English trigger phrases, which mostly don't translate literally into another language's own AI tells. The [`languages/`](languages/) directory holds one file per language or dialect (see [`languages/pt-br.md`](languages/pt-br.md)) with that language's actual stock phrasing and register conventions. `SKILL.md` checks for a matching file automatically; see [`languages/README.md`](languages/README.md) to add another language.
+
 ## Overview
 
 Based on [Wikipedia's "Signs of AI writing"](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing) guide, maintained by WikiProject AI Cleanup. This comprehensive guide comes from observations of thousands of instances of AI-generated text.
@@ -207,6 +211,7 @@ Rewrites follow a no-fabrication rule: they never add facts, names, dates, or ci
 
 ## Version History
 
+- **2.9.2** - Added a `languages/` directory (starting with `languages/pt-br.md`) so non-English input gets that language's own AI-tell vocabulary instead of a literal translation of the English patterns; `SKILL.md`'s Voice Calibration section now points to it. Added a casual-register shorthand-vs-spelled-out-formality rule to §23 (e.g. "ty" vs "thank you"). No change to the 33 patterns.
 - **2.9.1** - Improved distribution and portability: removed nonportable frontmatter and tool preapprovals, made global installation the documented default, added package validation, and removed the duplicated long-form example from the runtime prompt. No change to the 33 patterns.
 - **2.9.0** - Added a no-fabrication rule: rewrites may not invent facts, names, dates, or citations not present in the source, and every example that modeled invented specifics was re-cut to use only source information (fixes #187). Replaced paragraph-count parity with an information-over-shape rule, made a user's voice sample outrank the em dash ban, and added invocation modes (pasted text / file / embedded). No change to the 33 patterns.
 - **2.8.3** - Moved the skill version from the unsupported top-level frontmatter key to `metadata.version` for Agent Skills and Claude compatibility. No change to the 33 patterns.

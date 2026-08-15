@@ -9,7 +9,7 @@ description: |
   voice, negative parallelisms, and filler phrases.
 license: MIT
 metadata:
-  version: "2.9.1"
+  version: "2.9.2"
 ---
 
 # Humanizer: Remove AI Writing Patterns
@@ -34,6 +34,7 @@ If the user provides a writing sample (their own previous writing), analyze it b
 1. Read the sample first. Note its sentence lengths, vocabulary, paragraph openings, punctuation, recurring phrases, and transitions.
 2. Match those habits instead of merely deleting AI patterns. Do not upgrade casual words or regularize deliberate quirks.
 3. Without a sample, use the default behavior below.
+4. If the input is not in English, check this skill's `languages/` directory for a file matching the language or dialect (e.g. `languages/pt-br.md`). It documents that language's own AI-tell vocabulary and register conventions, which are usually not literal translations of the English patterns below. If no matching file exists, apply the patterns by their underlying rhetorical move (inflated significance, hedging, filler, mismatched formality, and so on) rather than searching for translations of the English trigger words.
 
 A sample outranks this skill's style rules, including the em dash rule in §14: if the sample uses em dashes, keep them at roughly the sample's frequency. Matching the author beats scrubbing the tell.
 
@@ -263,6 +264,10 @@ Before returning the final rewrite, scan it for `—` and `–`. Any hit means t
 - "In the event that you need help" → "If you need help"
 - "The system has the ability to process" → "The system can process"
 - "It is important to note that the data shows" → "The data shows"
+
+**Problem, casual chat register:** AI defaults to fully spelled-out, formal phrasing even in quick messages where a real person abbreviates. Match the register, not just the words.
+- "Thank you so much for your help!" (quick Slack message) → "thanks!" / "ty"
+- "I do not have the context on this yet" (quick chat message) → "don't have context on this yet"
 
 ### 24. Excessive Hedging
 **Problem:** Over-qualifying statements.
