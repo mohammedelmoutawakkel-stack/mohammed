@@ -145,12 +145,18 @@ When voice is appropriate, avoid uniform sentence structures, bloodless neutrali
 **After:**
 > The event includes talks and panels. There's also time for informal networking between sessions.
 
-### 11. Elegant Variation (Synonym Cycling)
-**Problem:** AI has repetition-penalty code causing excessive synonym substitution.
-**Before:**
+### 11. Elegant Variation and Repeated Sentence Openings
+**Problem:** AI has repetition-penalty code causing excessive synonym substitution. The same machinery misses in the other direction in narrative prose, where consecutive sentences all open on the same subject, usually a pronoun, and nothing varies where the sentence starts. Both are one defect: the model is managing repetition by rule instead of by ear. Cure over-variation by settling on a single referent. Cure under-variation by merging the sentences, by giving the subject role to something other than the character, or by opening on the action so the pronoun arrives later.
+**Before (synonym cycling):**
 > The protagonist faces many challenges. The main character must overcome obstacles. The central figure eventually triumphs. The hero returns home.
 **After:**
 > The protagonist faces many challenges but eventually triumphs and returns home.
+**Before (repeated openings):**
+> She noted the door. She noted the lock on it. She filed both away.
+**After:**
+> She noted the door and its lock, then filed both away.
+
+The fix is not banning the repeated word. A run of three sentences becoming one is what removes the tell; the survivor may still start with "She."
 
 ### 12. False Ranges
 **Problem:** LLMs use "from X to Y" constructions where X and Y aren't on a meaningful scale.
@@ -300,12 +306,16 @@ Before returning the final rewrite, scan it for `—` and `–`. Any hit means t
 
 ### 28. Signposting and Announcements
 
-**Phrases to watch:** Let's dive in, let's explore, let's break this down, here's what you need to know, now let's look at, without further ado
-**Problem:** LLMs announce what they are about to do instead of doing it. This meta-commentary slows the writing down and gives it a tutorial-script feel.
+**Phrases to watch:** Let's dive in, let's explore, let's break this down, here's what you need to know, now let's look at, without further ado. The tell is structural, not just formal: announcing what's about to be said or warned about instead of just saying it. That survives a casual reword just as easily — heads up, quick note, one thing that got me was X so watch out for Y, before I forget.
+**Problem:** LLMs announce what they are about to do instead of doing it. This meta-commentary slows the writing down and gives it a tutorial-script feel. Recasing the announcement into casual language ("one thing that bit me, so heads up on X") is not a fix, it's the same tell in different clothes — the announcement itself has to go, not just its formality.
 **Before:**
 > Let's dive into how caching works in Next.js. Here's what you need to know.
 **After:**
 > Next.js caches data at multiple layers, including request memoization, the data cache, and the router cache.
+**Before (casual register):**
+> One thing that bit me hard, so pay attention to this part: the webpack dev server doesn't send the CORS header by default.
+**After:**
+> The webpack dev server doesn't send the CORS header by default.
 
 ### 29. Fragmented Headers
 
@@ -391,6 +401,7 @@ A clean human writer can hit several of the patterns above without any AI involv
 - **Curly quotes alone.** macOS, Word, Google Docs, and most CMSes auto-curl by default. Curly quotes only count when stacked with other tells.
 - **Em dashes alone.** Many editors and journalists use them often. Em dashes are evidence only when paired with formulaic sales-y rhythm.
 - **One short emphatic sentence.** Humans use clipped sentences to land a point. Flag staccato drama only when several short fragments appear in a row and inflate the tone.
+- **Deliberate anaphora.** Repeating a sentence opening on purpose is an old device, and good prose uses it to build cadence or pressure ("She came. She saw. She conquered."). Flag a repeated opening only when the run does no rhetorical work and reads as the model failing to vary rather than a writer choosing.
 - **"Honestly" or "look" mid-sentence.** These are ordinary in casual writing. The tell is the standalone theatrical opener, not the word itself.
 - **Disclaimers and scoping that do real work.** "This guide does not cover Windows," legal and safety notices, and corrections of misconceptions readers actually hold are content, not shadowboxing (§34). So are attributed objections the text engages, replies and FAQs that answer someone by design, and a single self-aware aside in a voiced piece.
 - **Alternatives a reader would actually reach for.** Design docs weighing real options, tutorials warning against genuinely tempting mistakes, and essays that steelman before disagreeing are content, not scar tissue (§35). The tell is the implausible alternative dispatched mid-flow and never revisited.
