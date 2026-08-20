@@ -199,6 +199,9 @@ Claude Code 2.1.142 or newer can install the plugin instead:
 
 ```text
 /plugin marketplace add blader/humanizer
+```
+
+```text
 /plugin install humanizer@humanizer
 ```
 
