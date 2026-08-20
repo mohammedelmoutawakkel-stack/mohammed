@@ -2,12 +2,13 @@
 name: humanizer
 description: |
   Rewrite AI-sounding text so it reads naturally without changing what it says.
-  Use when editing or reviewing prose for inflated claims,
-  sales language, vague sources, repetitive structure, stock AI words, passive
-  voice, filler, or chatbot artifacts. Based on Wikipedia's "Signs of AI writing."
+  Use when editing or reviewing prose, including editable .docx documents, for
+  inflated claims, sales language, vague sources, repetitive structure, stock AI
+  words, passive voice, filler, chatbot artifacts, or unnecessary hyphenation.
+  Based on Wikipedia's "Signs of AI writing."
 license: MIT
 metadata:
-  version: "2.11.2"
+  version: "2.12.0"
 ---
 
 # Humanizer: remove AI writing patterns
@@ -24,6 +25,7 @@ When given text to humanize:
 2. **Keep every claim.** You may shorten dull parts, expand useful parts, and merge or split paragraphs. Keep the information even when you change the structure.
 3. **Do not invent facts.** Do not add a fact, name, number, date, quote, or citation unless it comes from the source or the user. If a sentence needs a missing detail, ask for it or use a simpler sentence. You may add an opinion or reaction when the writer's voice calls for one, but you may not add a factual claim. Fiction is exempt because invented details are part of the task.
 4. **Match the voice.** Use the right tone for the text, such as formal, casual, or technical. Add personality only when the text and the writer call for it.
+5. **Respect the source format.** If the input is an editable document such as `.docx`, edit the document itself instead of flattening it into plain text. Preserve formatting and document structure unless the user asks to change them.
 
 The input type controls what you return. See [How to return the result](#how-to-return-the-result). Use the same rewrite process in every mode.
 
@@ -290,14 +292,32 @@ Before returning the rewrite, search for `—` and `–`. Remove each one unless
 **After:**
 > (Cut the paragraph. End on the last concrete fact instead of a send-off. If the source states real plans, use those.)
 
-### 26. Too many hyphenated word pairs
+### 26. Unnecessary hyphenation, especially in technical noun phrases
 
-**Words to watch:** third-party, cross-functional, client-facing, data-driven, decision-making, well-known, high-quality, real-time, long-term, end-to-end
-**Problem:** AI writing often hyphenates these pairs everywhere. Keep the hyphen before a noun when grammar needs it, as in `a high-quality report`. Drop it after the noun, as in `the report is high quality`.
+**Words to watch:** machine-learning, deep-learning, language-model, drug-discovery, chemical-space, molecular-property, virtual-screening, reinforcement-learning, third-party, cross-functional, client-facing, data-driven, decision-making, well-known, high-quality, real-time, long-term, end-to-end
+
+**Problem:** AI writing often inserts hyphens mechanically whenever several words appear before a noun. English does not require every multiword modifier to be hyphenated. Established technical noun phrases usually stay open even when they modify another noun.
+
+Prefer conventional open technical phrases such as:
+- `machine learning model`, not `machine-learning model`
+- `deep learning method`, not `deep-learning method`
+- `language model training`, not `language-model training`
+- `drug discovery pipeline`, not `drug-discovery pipeline`
+- `chemical space exploration`, not `chemical-space exploration`
+- `molecular property prediction`, not `molecular-property prediction`
+- `virtual screening workflow`, not `virtual-screening workflow`
+- `reinforcement learning agent`, not `reinforcement-learning agent`
+
+Do not remove a hyphen when it is part of the standard spelling, needed to avoid ambiguity, or required by technical nomenclature. Keep established forms such as `high-quality report`, `state-of-the-art method`, `high-throughput screening`, `end-to-end pipeline`, `real-time monitoring`, `protein-ligand interaction`, `structure-activity relationship`, and domain-specific names such as `N-methyl` or `β-lactam`.
+
+For ordinary adjective compounds, keep the hyphen before a noun when grammar needs it, as in `a high-quality report`, and usually drop it after the noun, as in `the report is high quality`.
+
 **Before:**
-> The cross-functional team delivered a high-quality, data-driven report. The team is cross-functional, the report is high-quality, and the methodology is data-driven.
+> We trained a machine-learning model for a drug-discovery pipeline and evaluated the molecular-property predictions. The cross-functional team delivered a high-quality report, and the report is high-quality.
 **After:**
-> The cross-functional team delivered a high-quality, data-driven report. The team is cross functional, the report is high quality, and the methodology is data driven.
+> We trained a machine learning model for a drug discovery pipeline and evaluated the molecular property predictions. The cross-functional team delivered a high-quality report, and the report is high quality.
+
+Before returning the rewrite, inspect ordinary hyphens (`-`) separately from em and en dashes. For each hyphenated prose phrase, ask whether standard usage actually requires the hyphen. Do not change hyphens inside URLs, filenames, command-line flags, code, citations, identifiers, chemical nomenclature, model names, or quoted text unless the user explicitly asks.
 
 ### 27. Pretending to reveal a deeper truth
 
@@ -435,6 +455,17 @@ These details often carry the writer's voice. Keep them unless they hurt the mea
 
 **File mode.** When the user names a file, run the full rewrite process but write only the final text to the file. Change prose only. Keep code blocks, YAML metadata, data, and link targets unchanged. Then give the user a short summary.
 
+**DOCX edit mode.** When the input is a `.docx`, edit the Word document itself. Do not extract the prose, return a plain-text rewrite, and leave the document untouched.
+
+1. Use the environment's DOCX editing capability if one is available. In an OpenAI/ChatGPT container that exposes `/home/oai/skills/docx/SKILL.md`, read and follow that skill before editing.
+2. Work from the supplied document and preserve its existing styles, headings, paragraph formatting, tables, images, captions, footnotes/endnotes, comments, hyperlinks, headers/footers, section breaks, fields, and other non-prose structure unless a requested prose edit requires a local change.
+3. Change only prose that the humanizer would change. Do not rebuild the document from scratch or normalize formatting globally.
+4. If the user asks for `track changes`, `tracked changes`, `redline`, `review mode`, or equivalent, record prose replacements as tracked changes when the DOCX capability supports them. Otherwise make ordinary edits in the document.
+5. Preserve existing tracked changes and comments unless the user asks to accept, reject, remove, or rewrite them.
+6. If the environment provides DOCX rendering or visual QA, render and inspect the edited document before returning it. Fix layout regressions before delivery.
+7. Return the edited `.docx` as the primary result, followed by only a short summary of what changed. Do not duplicate the entire rewritten document in chat.
+8. If no DOCX editing capability exists, do not silently flatten the document. Explain that document-preserving edit mode is unavailable in that environment.
+
 **Embedded mode.** When another task uses this skill for a pull request, commit message, or document, return only the final text.
 
 ## Rewrite process
@@ -445,7 +476,8 @@ These details often carry the writer's voice. Keep them unless they hurt the mea
    - **"What still sounds AI-generated?"**
    - **"Did the rewrite add or remove any fact, name, number, date, quote, citation, ranking, or other claim?"**
    Treat any unsupported addition or lost claim as an error.
-4. Write the final version. State each point naturally instead of patching one flagged phrase at a time. If a sentence stays awkward, rewrite the paragraph around its main point. Apply the dash rule in §14.
+4. Write the final version. State each point naturally instead of patching one flagged phrase at a time. If a sentence stays awkward, rewrite the paragraph around its main point. Apply both the dash rule in §14 and the hyphenation rule in §26.
+5. For `.docx` input, apply the final prose changes inside the document using DOCX edit mode and verify that its layout and structure remain intact.
 
 Return the result required by [How to return the result](#how-to-return-the-result).
 
