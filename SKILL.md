@@ -7,7 +7,7 @@ description: |
   voice, filler, or chatbot artifacts. Based on Wikipedia's "Signs of AI writing."
 license: MIT
 metadata:
-  version: "2.11.2"
+  version: "2.11.3"
 ---
 
 # Humanizer: remove AI writing patterns
@@ -116,7 +116,7 @@ Add details such as dates or public actions only when they come from the source 
 **Before:**
 > Additionally, a distinctive feature of Somali cuisine is the incorporation of camel meat. An enduring testament to Italian colonial influence is the widespread adoption of pasta in the local culinary landscape, showcasing how these dishes have integrated into the traditional diet.
 **After:**
-> Somali cuisine also includes camel meat, which is considered a delicacy. Pasta dishes, introduced during Italian colonization, remain common, especially in the south.
+> Somali cuisine also includes camel meat. Pasta dishes, introduced during Italian colonization, remain common.
 
 ### 8. Avoiding is and are
 
@@ -125,7 +125,7 @@ Add details such as dates or public actions only when they come from the source 
 **Before:**
 > Gallery 825 serves as LAAA's exhibition space for contemporary art. The gallery features four separate spaces and boasts over 3,000 square feet.
 **After:**
-> Gallery 825 is LAAA's exhibition space for contemporary art. The gallery has four rooms totaling 3,000 square feet.
+> Gallery 825 is LAAA's exhibition space for contemporary art. The gallery has four separate spaces and over 3,000 square feet.
 
 ### 9. Not X but Y and clipped negative endings
 **Problem:** AI writing overuses forms such as "Not only...but..." and "It's not just X, it's Y."
@@ -167,7 +167,7 @@ Do not ban the repeated word. Fix the repeated sentence pattern. The remaining s
 **Before:**
 > Our journey through the universe has taken us from the singularity of the Big Bang to the grand cosmic web, from the birth and death of stars to the enigmatic dance of dark matter.
 **After:**
-> The book covers the Big Bang, star formation, and current theories about dark matter.
+> We covered the Big Bang, the cosmic web, the birth and death of stars, and dark matter.
 
 ### 13. Passive voice and missing subjects
 **Problem:** AI writing often hides who acts or drops the subject. Use active voice when it makes the actor and action clearer.
