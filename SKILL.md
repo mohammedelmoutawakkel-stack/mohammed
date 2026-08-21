@@ -7,7 +7,7 @@ description: |
   voice, filler, or chatbot artifacts. Based on Wikipedia's "Signs of AI writing."
 license: MIT
 metadata:
-  version: "2.11.2"
+  version: "2.11.3"
 ---
 
 # Humanizer: remove AI writing patterns
@@ -139,6 +139,20 @@ It also adds clipped endings such as "no guessing" instead of writing a clear cl
 > The options come from the selected item, no guessing.
 **After:**
 > The options come from the selected item without forcing the user to guess.
+
+For Chinese text, remove every “不是……而是……” construction. State the “而是” point directly when the contrast adds nothing. If the contrast matters, put it first with “区别于……” or move the necessary negative point after the main claim with “并非……”.
+**Before (direct):**
+> 这不是一次简单的更新，而是对整个工作流程的重构。
+**After:**
+> 这次更新重构了整个工作流程。
+**Before (contrast first):**
+> 这不是一次临时修补，而是一套长期方案。
+**After:**
+> 区别于临时修补，这是一套长期方案。
+**Before (negative point last):**
+> 这不是用户操作失误，而是系统没有保存草稿。
+**After:**
+> 系统没有保存草稿，并非用户操作失误。
 
 ### 10. Forced groups of three
 **Problem:** AI writing often forces ideas into groups of three to sound complete.
