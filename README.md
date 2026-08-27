@@ -6,7 +6,7 @@ Humanizer rewrites AI-sounding text so it reads like a person wrote it, without 
 
 ## How it works
 
-Humanizer uses 35 patterns from Wikipedia's ["Signs of AI writing"](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), maintained by WikiProject AI Cleanup. It makes a first pass without treating the original structure as fixed. Then it checks the draft against those patterns and the original claims before rewriting whatever still needs work.
+Humanizer uses 40 patterns from Wikipedia's ["Signs of AI writing"](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), maintained by WikiProject AI Cleanup, plus five patterns added from real-world review. It makes a first pass without treating the original structure as fixed. Then it checks the draft against those patterns and the original claims before rewriting whatever still needs work.
 
 > "LLMs use statistical algorithms to guess what should come next. The result tends toward the most statistically likely result that applies to the widest variety of cases."
 
@@ -52,7 +52,7 @@ Now humanize this text:
 
 Humanizer follows the sample's rhythm, word choice, punctuation, and deliberate quirks.
 
-## The 35 patterns
+## The 40 patterns
 
 ### Content patterns
 
@@ -113,6 +113,11 @@ Humanizer follows the sample's rhythm, word choice, punctuation, and deliberate 
 | 23 | **Filler phrases** | "In order to", "Due to the fact that" | "To", "Because" |
 | 24 | **Too many qualifiers** | "could potentially possibly" | "may" |
 | 25 | **Generic positive endings** | "The future looks bright" | End with a fact or a sourced plan |
+| 36 | **Forced tables, lists, and numbering** | A table where column 2 restates column 1 | Use prose when nothing is being compared or ordered |
+| 37 | **Leftover AI-tool artifacts** | "opened in 1932oaicite/turn0search3" | Remove citation tokens, tags, and tracking params |
+| 38 | **A title defining itself** | "List of songs about Mexico is a curated compilation of..." | "This list collects songs that reference Mexico" |
+| 39 | **Register mismatch between sections** | Plain sentences, then "leverages an idempotent retry mechanism to facilitate..." | Keep one register throughout |
+| 40 | **Chains of "and" instead of real punctuation** | "restarts and reconnects and resumes and logs" | Use a semicolon, colon, or parentheses |
 
 ## Full example
 
@@ -154,6 +159,7 @@ Humanizer follows the sample's rhythm, word choice, punctuation, and deliberate 
 <details>
 <summary>Show release notes</summary>
 
+- **2.12.0** - Added patterns #36-40 for forced tables/lists, leftover AI-tool artifacts, a title used as its own opening subject, register mismatch between sections, and "and"-chains in place of real punctuation. Added corporate-verb words (utilize, leverage, facilitate, optimize, ascertain, endeavor, commence, initiate, demonstrate) to §7. 40 patterns total.
 - **2.11.2** - Removed the plugin symlink and separate Claude Desktop package. Current Claude Code loads the root `SKILL.md` directly, so GitHub's source ZIP now works in Claude Desktop. No change to the 35 patterns.
 - **2.11.1** - Added a Claude Desktop-ready release package with one regular `humanizer/SKILL.md` file. GitHub's source archive still keeps the plugin symlink (fixes #224). No change to the 35 patterns.
 - **2.11.0** - Rewrote all repo guidance, descriptions, checks, and skill instructions in Plain Language. Kept all 35 patterns and their behavior.

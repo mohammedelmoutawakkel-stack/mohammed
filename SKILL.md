@@ -7,7 +7,7 @@ description: |
   voice, filler, or chatbot artifacts. Based on Wikipedia's "Signs of AI writing."
 license: MIT
 metadata:
-  version: "2.11.2"
+  version: "2.12.0"
 ---
 
 # Humanizer: remove AI writing patterns
@@ -111,7 +111,7 @@ Add details such as dates or public actions only when they come from the source 
 
 ### 7. Overused AI words
 
-**High-frequency AI words:** Actually, additionally, align with, crucial, delve, emphasizing, enduring, enhance, fostering, garner, gate/gated/gating (figurative; preserve established technical usage), highlight (verb), interplay, intricate/intricacies, key (adjective), landscape (abstract noun), pivotal, quietly, showcase, tapestry (abstract noun), testament, underscore (verb), valuable, vibrant
+**High-frequency AI words:** Actually, additionally, align with, ascertain, commence, crucial, delve, demonstrate (as a synonym for show), emphasizing, endeavor/endeavour, enduring, enhance, facilitate, fostering, garner, gate/gated/gating (figurative; preserve established technical usage), highlight (verb), initiate, interplay, intricate/intricacies, key (adjective), landscape (abstract noun), leverage (verb), optimize (figurative; preserve established technical usage), pivotal, quietly, showcase, tapestry (abstract noun), testament, underscore (verb), utilize, valuable, vibrant
 **Problem:** AI writing uses these words much more often than most people do, especially in groups.
 **Before:**
 > Additionally, a distinctive feature of Somali cuisine is the incorporation of camel meat. An enduring testament to Italian colonial influence is the widespread adoption of pasta in the local culinary landscape, showcasing how these dishes have integrated into the traditional diet.
@@ -389,6 +389,46 @@ Remove only the unsupported defense. If it contains a real claim, state that cla
 > Session tokens are rotated every 24 hours, in place, and clients refresh transparently.
 
 One rejected option may be valid. Several short, unrelated rejections are a stronger sign. Ask what new information each sentence adds. If it only records an earlier edit, rewrite the paragraph around its main point.
+
+### 36. Forced tables, lists, and numbering
+
+**Rule:** AI writing turns plain prose into a table, bullet list, or numbered steps even when the content has no real categories, comparison, or order. Watch for a two-column table where the second column only restates the first, or numbered steps for events that have no sequence.
+**Before:**
+> Feature: Speed. The app is fast. Feature: Design. The app looks clean.
+**After:**
+> The app is fast and looks clean.
+
+### 37. Leftover AI-tool artifacts
+
+**Rule:** AI writing sometimes keeps raw markup from the tool that produced it: citation tokens such as `oaicite` or `turn0search`, tags such as `contentReference` or `[cite: 1]`, tracking parameters such as `utm_source=chatgpt.com`, or a malformed DOI. Remove every trace. This is a defect to fix, not a style judgment.
+**Before:**
+> The bridge opened in 1932oaicite/turn0search3 and remains in use today.
+**After:**
+> The bridge opened in 1932 and remains in use today.
+
+### 38. A title defining itself as the opening move
+
+**Rule:** AI writing sometimes opens a document by restating its own title as the sentence's subject, then defining what that title is. This differs from §29: that pattern is a heading restated inside the body below it, this one is the document's title used as the subject of its own first sentence.
+**Before:**
+> List of songs about Mexico is a curated compilation of musical works that reference the country.
+**After:**
+> This list collects songs that reference Mexico.
+
+### 39. Register mismatch between sections
+
+**Rule:** AI writing can shift formality or vocabulary mid-document, often marking the seam where one part was generated and another was written by hand or added later. Watch for a jump from plain, direct sentences to dense jargon, or the reverse, with no reason for the change.
+**Before:**
+> We fixed the login bug. Subsequently, the implementation leverages an idempotent retry mechanism to facilitate seamless session persistence.
+**After:**
+> We fixed the login bug. Retries are now idempotent, so a session survives one safely.
+
+### 40. Chains of "and" instead of real punctuation
+
+**Rule:** AI writing sometimes strings clauses together with "and" instead of a semicolon, colon, or parentheses, flattening ideas that have a real relationship into a list. This is a companion to §14: dashes are one overused connector, "and" chains are another.
+**Before:**
+> The service restarts and reconnects and resumes the job and logs the outcome.
+**After:**
+> The service restarts, reconnects, and resumes the job; it logs the outcome either way.
 
 ## Check for false positives
 
