@@ -403,7 +403,7 @@ Keep the pronoun when one noun before it is the clear referent. Flag it when two
 
 ### 37. Label fragments in place of sentences
 
-**Problem:** AI writing often punctuates a noun phrase as a sentence. The habit shows up most often in a subtitle, a summary line, or the first line of a section. The phrase names a topic but makes no claim. Write the claim as a sentence. Pattern 31 covers short sentences used for drama, and pattern 13 covers dropped subjects in instructions. Pattern 37 covers a label standing where a sentence belongs.
+**Problem:** AI writing often punctuates a noun phrase as a sentence. The phrase names a topic but makes no claim. Write the claim as a sentence. Pattern 31 covers short sentences used for drama, and pattern 13 covers dropped subjects in instructions. Pattern 37 covers a label standing where a sentence belongs.
 **Before:**
 > Research synopsis. How the team builds models today, and what to change.
 **After:**
