@@ -6,7 +6,7 @@ Humanizer rewrites AI-sounding text so it reads like a person wrote it, without 
 
 ## How it works
 
-Humanizer uses 35 patterns from Wikipedia's ["Signs of AI writing"](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), maintained by WikiProject AI Cleanup. It makes a first pass without treating the original structure as fixed. Then it checks the draft against those patterns and the original claims before rewriting whatever still needs work.
+Humanizer uses 37 patterns from Wikipedia's ["Signs of AI writing"](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), maintained by WikiProject AI Cleanup. It makes a first pass without treating the original structure as fixed. Then it checks the draft against those patterns and the original claims before rewriting whatever still needs work.
 
 > "LLMs use statistical algorithms to guess what should come next. The result tends toward the most statistically likely result that applies to the widest variety of cases."
 
@@ -52,7 +52,7 @@ Now humanize this text:
 
 Humanizer follows the sample's rhythm, word choice, punctuation, and deliberate quirks.
 
-## The 35 patterns
+## The 37 patterns
 
 ### Content patterns
 
@@ -97,6 +97,8 @@ Humanizer follows the sample's rhythm, word choice, punctuation, and deliberate 
 | 33 | **Fake-candid openings** | "Honestly? It depends..." | State the answer directly |
 | 34 | **Answering objections no one raised** | "This isn't mainly about prompt length..." | Remove the unsupported defense and keep any real claim |
 | 35 | **Rejecting fake alternatives** | "A tempting option would be to..., but" | Remove the fake option and keep real choices |
+| 36 | **Pronouns that point at nothing** | "This is useful when the queue backs up" | Name the noun the pronoun stands for |
+| 37 | **Label fragments in place of sentences** | "Research synopsis." | Write the claim as a sentence |
 
 ### Chatbot patterns
 
@@ -154,6 +156,7 @@ Humanizer follows the sample's rhythm, word choice, punctuation, and deliberate 
 <details>
 <summary>Show release notes</summary>
 
+- **2.12.0** - Added patterns #36 and #37 for pronouns with no clear referent and for noun phrases punctuated as sentences. Both note their limits so headings, table cells, and clear pronouns stay untouched. 37 patterns total.
 - **2.11.2** - Removed the plugin symlink and separate Claude Desktop package. Current Claude Code loads the root `SKILL.md` directly, so GitHub's source ZIP now works in Claude Desktop. No change to the 35 patterns.
 - **2.11.1** - Added a Claude Desktop-ready release package with one regular `humanizer/SKILL.md` file. GitHub's source archive still keeps the plugin symlink (fixes #224). No change to the 35 patterns.
 - **2.11.0** - Rewrote all repo guidance, descriptions, checks, and skill instructions in Plain Language. Kept all 35 patterns and their behavior.

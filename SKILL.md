@@ -7,7 +7,7 @@ description: |
   voice, filler, or chatbot artifacts. Based on Wikipedia's "Signs of AI writing."
 license: MIT
 metadata:
-  version: "2.11.2"
+  version: "2.12.0"
 ---
 
 # Humanizer: remove AI writing patterns
@@ -389,6 +389,27 @@ Remove only the unsupported defense. If it contains a real claim, state that cla
 > Session tokens are rotated every 24 hours, in place, and clients refresh transparently.
 
 One rejected option may be valid. Several short, unrelated rejections are a stronger sign. Ask what new information each sentence adds. If it only records an earlier edit, rewrite the paragraph around its main point.
+
+### 36. Pronouns that point at nothing
+
+**Words to watch:** This is, That is, It is, this shows, that means, all of it, any of it
+**Problem:** AI writing often starts a sentence with a pronoun that stands for the whole idea before it instead of a noun. The reader has to work out what the pronoun stands for. Name the thing instead.
+**Before:**
+> The service retries failed jobs and logs each attempt. This is useful when the queue backs up. It means operators can see what happened.
+**After:**
+> The service retries failed jobs and logs each attempt. The log helps when the queue backs up, because operators can see what happened.
+
+Keep the pronoun when one noun before it is the clear referent. Flag it when two nouns compete, when it stands for a whole clause, or when the sentence still reads well with the noun in its place.
+
+### 37. Label fragments in place of sentences
+
+**Problem:** AI writing often punctuates a noun phrase as a sentence. The habit shows up most often in a subtitle, a summary line, or the first line of a section. The phrase names a topic but makes no claim. Write the claim as a sentence. Pattern 31 covers short sentences used for drama, and pattern 13 covers dropped subjects in instructions. Pattern 37 covers a label standing where a sentence belongs.
+**Before:**
+> Research synopsis. How the team builds models today, and what to change.
+**After:**
+> This review covers how the team builds models today and what to change.
+
+Keep fragments in headings, table cells, and list items, where a label is the right form.
 
 ## Check for false positives
 
