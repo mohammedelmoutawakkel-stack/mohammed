@@ -7,7 +7,7 @@ description: |
   voice, filler, or chatbot artifacts. Based on Wikipedia's "Signs of AI writing."
 license: MIT
 metadata:
-  version: "2.11.2"
+  version: "2.11.3"
 ---
 
 # Humanizer: remove AI writing patterns
@@ -289,6 +289,8 @@ Before returning the rewrite, search for `—` and `–`. Remove each one unless
 > The future looks bright for the company. Exciting times lie ahead as they continue their journey toward excellence. This represents a major step in the right direction.
 **After:**
 > (Cut the paragraph. End on the last concrete fact instead of a send-off. If the source states real plans, use those.)
+
+## More style patterns
 
 ### 26. Too many hyphenated word pairs
 

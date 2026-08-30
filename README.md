@@ -87,16 +87,6 @@ Humanizer follows the sample's rhythm, word choice, punctuation, and deliberate 
 | 17 | **Title case in headings** | "Strategic Negotiations And Partnerships" | "Strategic negotiations and partnerships" |
 | 18 | **Emojis** | "🚀 Launch Phase: 💡 Key Insight:" | Remove emojis |
 | 19 | **Curly quotes** | `said “the project”` | `said "the project"` |
-| 26 | **Too many hyphenated word pairs** | “cross-functional, data-driven, client-facing” | Keep only the hyphens grammar needs |
-| 27 | **A fake deeper truth** | "At its core, what matters is..." | State the point directly |
-| 28 | **Announcing the next point** | "Let's dive in", or "one thing that bit me" | Start with the content |
-| 29 | **A heading repeated below itself** | "## Performance" + "Speed matters." | Let the heading do the work |
-| 30 | **Writing about the old version** | "This function was added to replace..." | Describe what it does now |
-| 31 | **Forced punchlines and fragments** | "It had no preference. No prior. No nostalgia." | Use natural sentence lengths and specific claims |
-| 32 | **Formulaic sayings** | "Symmetry is the language of trust" | State the specific claim |
-| 33 | **Fake-candid openings** | "Honestly? It depends..." | State the answer directly |
-| 34 | **Answering objections no one raised** | "This isn't mainly about prompt length..." | Remove the unsupported defense and keep any real claim |
-| 35 | **Rejecting fake alternatives** | "A tempting option would be to..., but" | Remove the fake option and keep real choices |
 
 ### Chatbot patterns
 
@@ -113,6 +103,21 @@ Humanizer follows the sample's rhythm, word choice, punctuation, and deliberate 
 | 23 | **Filler phrases** | "In order to", "Due to the fact that" | "To", "Because" |
 | 24 | **Too many qualifiers** | "could potentially possibly" | "may" |
 | 25 | **Generic positive endings** | "The future looks bright" | End with a fact or a sourced plan |
+
+### More style patterns
+
+| # | Pattern | Before | After |
+|---|---------|--------|-------|
+| 26 | **Too many hyphenated word pairs** | "cross-functional, data-driven, client-facing" | Keep only the hyphens grammar needs |
+| 27 | **A fake deeper truth** | "At its core, what matters is..." | State the point directly |
+| 28 | **Announcing the next point** | "Let's dive in", or "one thing that bit me" | Start with the content |
+| 29 | **A heading repeated below itself** | "## Performance" + "Speed matters." | Let the heading do the work |
+| 30 | **Writing about the old version** | "This function was added to replace..." | Describe what it does now |
+| 31 | **Forced punchlines and fragments** | "It had no preference. No prior. No nostalgia." | Use natural sentence lengths and specific claims |
+| 32 | **Formulaic sayings** | "Symmetry is the language of trust" | State the specific claim |
+| 33 | **Fake-candid openings** | "Honestly? It depends..." | State the answer directly |
+| 34 | **Answering objections no one raised** | "This isn't mainly about prompt length..." | Remove the unsupported defense and keep any real claim |
+| 35 | **Rejecting fake alternatives** | "A tempting option would be to..., but" | Remove the fake option and keep real choices |
 
 ## Full example
 
@@ -154,6 +159,7 @@ Humanizer follows the sample's rhythm, word choice, punctuation, and deliberate 
 <details>
 <summary>Show release notes</summary>
 
+- **2.11.3** - Moved patterns 26-35 out of the "Filler and hedging" section into their own "More style patterns" section. They were appended below that heading as they were added, so the skill labeled ten style patterns as filler (fixes #247). Matched the README tables to the skill's order. No change to the 35 patterns.
 - **2.11.2** - Removed the plugin symlink and separate Claude Desktop package. Current Claude Code loads the root `SKILL.md` directly, so GitHub's source ZIP now works in Claude Desktop. No change to the 35 patterns.
 - **2.11.1** - Added a Claude Desktop-ready release package with one regular `humanizer/SKILL.md` file. GitHub's source archive still keeps the plugin symlink (fixes #224). No change to the 35 patterns.
 - **2.11.0** - Rewrote all repo guidance, descriptions, checks, and skill instructions in Plain Language. Kept all 35 patterns and their behavior.
