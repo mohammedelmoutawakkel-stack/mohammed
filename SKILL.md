@@ -7,7 +7,7 @@ description: |
   voice, filler, or chatbot artifacts. Based on Wikipedia's "Signs of AI writing."
 license: MIT
 metadata:
-  version: "2.11.2"
+  version: "2.12.0"
 ---
 
 # Humanizer: remove AI writing patterns
@@ -389,6 +389,15 @@ Remove only the unsupported defense. If it contains a real claim, state that cla
 > Session tokens are rotated every 24 hours, in place, and clients refresh transparently.
 
 One rejected option may be valid. Several short, unrelated rejections are a stronger sign. Ask what new information each sentence adds. If it only records an earlier edit, rewrite the paragraph around its main point.
+
+### 36. Hedge then overstate
+
+**Phrases to watch:** "It's worth noting that... [strong claim]", "arguably... [absolute claim]", "in some sense... [definite statement]", "to some extent... critically", "broadly speaking... fundamentally"
+**Problem:** A soft opener paired with a strong claim in the same sentence. The hedge gives the writer room to retreat while the superlative does the real asserting, so the reader has to guess how much the writer means. Strip the hedge and the sentence becomes a plain claim; strip the superlative and it says nothing. Pick one: make the claim and back it, or make the smaller claim and own it.
+**Before:**
+> It's worth noting that caching is the single most important optimization here. Arguably, it changes everything about how the service scales.
+**After:**
+> Caching is the main optimization here. It roughly halves the median response time under load.
 
 ## Check for false positives
 
