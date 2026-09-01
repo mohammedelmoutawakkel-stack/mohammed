@@ -7,7 +7,7 @@ description: |
   voice, filler, or chatbot artifacts. Based on Wikipedia's "Signs of AI writing."
 license: MIT
 metadata:
-  version: "2.11.2"
+  version: "2.12.0"
 ---
 
 # Humanizer: remove AI writing patterns
@@ -26,6 +26,23 @@ When given text to humanize:
 4. **Match the voice.** Use the right tone for the text, such as formal, casual, or technical. Add personality only when the text and the writer call for it.
 
 The input type controls what you return. See [How to return the result](#how-to-return-the-result). Use the same rewrite process in every mode.
+
+## Decide the length mode first
+
+Most patterns below were written for articles and essays. Applied at full force to a two-line message, they make the writing worse. Decide which mode you are in before editing.
+
+**Short social text** (comments, replies, DMs, chat, captions, one-line posts). The failure here is not inflation, it is coldness. A four-word reply cannot contain a group of three or a false range. Check only these:
+
+- Does it sound like something a person would type with their thumbs?
+- Is there scaffolding around the point that could go? ("As someone who...", "I just wanted to say...", "Du har ju...")
+- Is the warmth still there? Keep the emoji, the exclamation mark, the first name.
+- Read it aloud. If you would not say it to their face in that word order, change it.
+
+Then stop. Do not run the full list, do not produce a change log, do not offer variants unless asked.
+
+**Medium text** (a LinkedIn post, an email, a README section). Run the style and language patterns. Skip the content-inflation patterns unless the text is puffing something up.
+
+**Long text** (blog post, newsletter, essay, documentation). Run everything, including the deletion pass in the rewrite process.
 
 ## Match the writer's voice
 
@@ -111,6 +128,7 @@ Add details such as dates or public actions only when they come from the source 
 
 ### 7. Overused AI words
 
+**Status:** quiet on Fable 5.1 (2026-08-26, baseline run 1). A tic, not a general weakness. Remove if quiet on the next review.
 **High-frequency AI words:** Actually, additionally, align with, crucial, delve, emphasizing, enduring, enhance, fostering, garner, gate/gated/gating (figurative; preserve established technical usage), highlight (verb), interplay, intricate/intricacies, key (adjective), landscape (abstract noun), pivotal, quietly, showcase, tapestry (abstract noun), testament, underscore (verb), valuable, vibrant
 **Problem:** AI writing uses these words much more often than most people do, especially in groups.
 **Before:**
@@ -147,6 +165,8 @@ It also adds clipped endings such as "no guessing" instead of writing a clear cl
 **After:**
 > The event includes talks and panels. There's also time for informal networking between sessions.
 
+**The structural form is the one that survives.** Newer models have mostly stopped writing triplets inside a sentence and moved the three up a level: three numbers that tell the story, three lessons learned, a title with three items, a closing line that lists three things gained. Each section is otherwise clean. Check the outline, not only the sentences. If the piece has three of anything as its organising device and the material did not arrive in threes, one is padding or two are one point. (Seen in Fable 5.1, 2026-08-26: zero in-sentence triplets, four structural ones.)
+
 ### 11. Changing names and repeating sentence openings
 **Problem:** AI writing handles repetition by rule instead of by ear. It may keep renaming the same person or thing. It may also start several sentences with the same subject, often *she* or *he*.
 
@@ -180,6 +200,7 @@ Do not ban the repeated word. Fix the repeated sentence pattern. The remaining s
 
 ### 14. Em and en dashes
 
+**Status:** quiet on Fable 5.1 (2026-08-26, baseline run 1). Zero dashes in 900 words of English, where earlier generations averaged one per paragraph. Remove if quiet on the next review.
 **Rule:** The final rewrite must not contain em dashes (—) or en dashes (–), unless the writer's sample uses them. Replace a dash with a period, comma, colon, or parentheses, or rewrite the sentence. Also check for spaced dashes (` — `) and double hyphens (` -- `) used as dashes.
 **Before:**
 > The term is primarily promoted by Dutch institutions—not by the people themselves. You don't say "Netherlands, Europe" as an address—yet this mislabeling continues—even in official documents.
@@ -192,7 +213,10 @@ Do not ban the repeated word. Fix the repeated sentence pattern. The remaining s
 
 Before returning the rewrite, search for `—` and `–`. Remove each one unless the writer's sample uses that mark. In that case, match the sample's rate.
 
+**Swedish exception.** In Swedish text a short dash with a space on each side (` – `) is correct typography, used sparingly. Do not remove it. The Swedish tell is the unspaced em dash, see §37.
+
 ### 15. Too much bold text
+**Status:** quiet on Fable 5.1 (2026-08-26, baseline run 1). Remove if quiet on the next review.
 **Problem:** AI chatbots often bold words and phrases without a clear reason.
 **Before:**
 > It blends **OKRs (Objectives and Key Results)**, **KPIs (Key Performance Indicators)**, and visual strategy tools such as the **Business Model Canvas (BMC)** and **Balanced Scorecard (BSC)**.
@@ -209,6 +233,7 @@ Before returning the rewrite, search for `—` and `–`. Remove each one unless
 > The update improves the interface, speeds up load times through optimized algorithms, and adds end-to-end encryption.
 
 ### 17. Title case in headings
+**Status:** quiet on Fable 5.1 (2026-08-26, baseline run 1). Sentence case in a blog title, its headings, and six README headings. Remove if quiet on the next review.
 **Problem:** AI chatbots often capitalize every main word in a heading.
 **Before:**
 > ## Strategic Negotiations And Global Partnerships
@@ -292,6 +317,7 @@ Before returning the rewrite, search for `—` and `–`. Remove each one unless
 
 ### 26. Too many hyphenated word pairs
 
+**Status:** quiet on Fable 5.1 (2026-08-26, baseline run 1). Remove if quiet on the next review.
 **Words to watch:** third-party, cross-functional, client-facing, data-driven, decision-making, well-known, high-quality, real-time, long-term, end-to-end
 **Problem:** AI writing often hyphenates these pairs everywhere. Keep the hyphen before a noun when grammar needs it, as in `a high-quality report`. Drop it after the noun, as in `the report is high quality`.
 **Before:**
@@ -310,7 +336,7 @@ Before returning the rewrite, search for `—` and `–`. Remove each one unless
 
 ### 28. Announcing the next point
 
-**Phrases to watch:** Let's dive in, let's explore, let's break this down, here's what you need to know, now let's look at, without further ado, heads up, quick note, before I forget
+**Phrases to watch:** Let's dive in, let's explore, let's break this down, here's what you need to know, now let's look at, without further ado, heads up, quick note, before I forget, what happened next, the part I did not expect, the reason is worth writing down, and this is where it gets interesting, but that is not the whole story
 **Problem:** AI writing often announces the next point instead of stating it. A casual phrase such as "one thing that bit me" can have the same problem. Remove the announcement, not just its formal tone.
 **Before:**
 > Let's dive into how caching works in Next.js. Here's what you need to know.
@@ -320,6 +346,12 @@ Before returning the rewrite, search for `—` and `–`. Remove each one unless
 > One thing that bit me hard, so pay attention to this part: the webpack dev server doesn't send the CORS header by default.
 **After:**
 > The webpack dev server doesn't send the CORS header by default.
+
+**The narrative form.** In first-person writing the announcement rarely uses the phrases above. It says the next thing will be surprising instead of saying the thing. **The test:** delete the sentence and read on. If no other sentence lost meaning, it was scaffolding. This works on well-written sentences too, which is why it survives ordinary editing.
+**Before:**
+> What happened next is the part I did not expect. They found each other, and they wrote a protocol.
+**After:**
+> Then they found each other and wrote a protocol, unprompted.
 
 ### 29. A heading repeated in the first sentence
 
@@ -349,6 +381,12 @@ Before returning the rewrite, search for `—` and `–`. Remove each one unless
 > Then AlphaEvolve arrived. It had no preference for symmetry. No aesthetic prior. No nostalgia for human taste. The old rules were gone.
 **After:**
 > AlphaEvolve changed the search because it did not favor symmetry or human-looking designs. That made some of the older assumptions less useful.
+
+**The paragraph-level form.** Newer models rarely stack fragments in a row. Instead each paragraph closes on one good quotable line. Each is fine alone. In sequence they are a metronome. **The test:** read only the last sentence of every paragraph. If more than a third are aphoristic, rewrite most of them to end on the fact, not the moral. (Seen in Fable 5.1, 2026-08-26: six of nine body paragraphs.)
+**Before:**
+> Once you subtract shipping, fees, and the time spent photographing and posting, the margin on a typical flip is measured in tens of kronor. You cannot build a business on tens of kronor, and you cannot even build a fun hobby on it, because the hobby stops being fun somewhere around the fourth trip to the post office.
+**After:**
+> Once you subtract shipping, fees, and the time spent photographing and posting, the margin on a typical flip is a few tens of kronor.
 
 ### 32. Formulaic sayings
 
@@ -389,6 +427,78 @@ Remove only the unsupported defense. If it contains a real claim, state that cla
 > Session tokens are rotated every 24 hours, in place, and clients refresh transparently.
 
 One rejected option may be valid. Several short, unrelated rejections are a stronger sign. Ask what new information each sentence adds. If it only records an earlier edit, rewrite the paragraph around its main point.
+
+### 36. Invented particulars in first-person text
+
+**Signs to watch:** A precise day count. A habit attributed to the author. A component of the project never mentioned in the brief. A figure that was not supplied.
+**Problem:** Asked for a piece of a given length, the model fills the length with plausible specifics. In reference text this is §21. In first-person text it is fabricated memory, and the reader cannot tell the supplied facts from the invented ones. The invented ones are often plausible enough to survive the author's own read, which is how they get published.
+**The test:** list every concrete claim in the draft. Mark which came from the prompt or the writer. Everything else was manufactured. Cut it or replace it with the real detail.
+**Before** (the brief supplied: three weeks, median 130 kr, half sells, nothing post-2020 moves):
+> If I had written down "if the median sale is under 300 kronor, stop" on day one, I would have stopped on day six instead of day twenty-one. I did most of this by directing AI tools rather than writing the code myself, which is how I build most things now.
+**After:**
+> If I had written down a kill threshold on day one, I would have stopped in the first week.
+
+Seen in Fable 5.1, 2026-08-26: four facts in, roughly fifteen specific claims out. Several of the invented ones happened to be true of the real project, which makes them harder to catch.
+
+## Swedish patterns
+
+The patterns above are written for English. Swedish AI text has its own fingerprints, and several survive translation from an English draft. When the text is Swedish, check these as well.
+
+### 37. Imported dash typography
+
+**Status:** quiet on Fable 5.1 (2026-08-26, baseline run 1), but the sample was forty words. Keep until a longer Swedish sample has been reviewed.
+**Problem:** English AI writing uses the unspaced em dash (—). Swedish typography uses the shorter dash with a space on each side (` – `), and uses it less often. An unspaced em dash in Swedish is close to a signature. The spaced short dash is correct and must not be removed; see the exception in §14.
+**Before:**
+> Bolaget grundades 2026—ett år efter att han slutat.
+**After:**
+> Bolaget grundades 2026, ett år efter att han slutat.
+
+Most of the time the fix is a comma or a period, not a different dash.
+
+### 38. Translated English idiom
+
+**Words to watch:** resa (about a career or company), landskap (figurative), kraftfull, sömlös, banbrytande, revolutionerande, nyckelroll, i hjärtat av, dyk ner i, utforska (about a topic rather than a place), leverera värde, ta det till nästa nivå, det är här magin händer
+**Problem:** Phrases that are unremarkable in English and slightly foreign in Swedish. The strongest single sign that a Swedish text started life as an English draft.
+**Before:**
+> Det har varit en otrolig resa och jag ser fram emot att utforska det nya landskapet.
+**After:**
+> Det har varit tre tuffa år och jag vet fortfarande inte vad som händer sen.
+
+### 39. Swedish connector stacking
+
+**Words to watch:** Dessutom, Vidare, Därtill, Sammanfattningsvis, Avslutningsvis, Det är värt att notera att, I takt med att, I en värld där
+**Problem:** AI opens Swedish sentences with the same small set of connectors, in the same order, paragraph after paragraph. Swedish tolerates asyndeton better than English. Deleting the connector usually works on its own.
+**Before:**
+> Dessutom är verktyget snabbt. Vidare är det enkelt att använda. Sammanfattningsvis är det ett bra val.
+**After:**
+> Verktyget är snabbt och enkelt att använda. Jag skulle välja det igen.
+
+### 40. Swedish LinkedIn voice
+
+**Words to watch:** Så otroligt stolt över att, Jag är glad att kunna meddela, Vilken resa det har varit, ödmjuk inför, tack för förtroendet, superpeppad, jag är exalterad över att dela, spännande nyheter, mer om detta snart, tacksam för alla fantastiska människor
+**Problem:** A dialect built almost entirely from status signalling. Also watch for broetry: every sentence on its own line with a blank line between, used to make ordinary statements dramatic. One or two deliberate breaks help readability on LinkedIn. Eight in a row is a format, not a voice.
+**Before:**
+> Så otroligt stolt över att kunna meddela att jag börjar en ny resa.
+>
+> Vilken resa det har varit.
+>
+> Ödmjuk inför uppgiften.
+>
+> Mer om detta snart.
+**After:**
+> Idag är min första dag som egenföretagare.
+>
+> Lite nervös. Mest taggad.
+>
+> Återkommer när det finns något att visa.
+
+### 41. Over-formal register
+
+**Problem:** AI defaults to written-Swedish formality even in casual contexts: the impersonal *man* where *du* or *jag* is natural, and the passive s-form where an active verb is clearer.
+**Before:**
+> Om man vill komma igång rekommenderas att en genomgång görs av inställningarna.
+**After:**
+> Vill du komma igång, börja med att gå igenom inställningarna.
 
 ## Check for false positives
 
@@ -441,13 +551,35 @@ These details often carry the writer's voice. Keep them unless they hurt the mea
 
 1. Read the source and mark each AI pattern.
 2. Write a draft. Read it aloud. Check the rhythm, details, simple verbs such as *is* and *has*, and the right level of formality.
-3. Ask two questions:
+3. **Run the deletion pass** on medium and long text. Go through the draft one paragraph at a time, and every short standalone sentence, and ask: if I delete this, what does the reader no longer know?
+   - A fact, a number, an opinion, an image, or a turn in the argument: keep it.
+   - "Nothing, but it sets up the next paragraph": cut it. Setup is not content.
+   - "It repeats the previous paragraph in other words": cut it.
+   - "It tells the reader this part matters": cut it and let the part matter.
+
+   Do this on the draft, not the source. A first rewrite is where this kind of connective padding gets added, because smoothing prose and inflating it feel the same from the inside. Most patterns in this guide are phrase lists and catch a defect only in the wording it was documented in. The deletion pass needs no list, and it works on well-written sentences, which is the point.
+4. Ask two questions:
    - **"What still sounds AI-generated?"**
    - **"Did the rewrite add or remove any fact, name, number, date, quote, citation, ranking, or other claim?"**
    Treat any unsupported addition or lost claim as an error.
-4. Write the final version. State each point naturally instead of patching one flagged phrase at a time. If a sentence stays awkward, rewrite the paragraph around its main point. Apply the dash rule in §14.
+5. Write the final version. State each point naturally instead of patching one flagged phrase at a time. If a sentence stays awkward, rewrite the paragraph around its main point. Apply the dash rule in §14.
 
 Return the result required by [How to return the result](#how-to-return-the-result).
+
+## Reviewing this guide against a new model
+
+Some patterns here describe writing that is weak no matter who wrote it: vague sources, filler, hedging, generic endings. Those do not expire. Others describe one model generation's tics: a vocabulary, a dash density, a sentence shape. Those go stale, and every dead rule makes the guide slower to apply and easier to skim past. Forty patterns that all fire beat sixty where a third are historical.
+
+When a new model ships, review the guide rather than only adding to it.
+
+1. Run the three frozen prompts in `BASELINE-PROMPTS.md`, each in a clean context with no CLAUDE.md, no skills, and no prior turns. A loaded instruction file changes the output enough to invalidate the comparison.
+2. Read the output against the pattern list and mark which patterns actually appear.
+3. Keep every pattern that fired.
+4. For a pattern that did not fire, ask which kind it is. A general weakness stays. A tic that is gone gets a **Status: quiet** line with the model and date.
+5. Do not remove on one sample. Remove when a pattern has stayed quiet on two reviews.
+6. Look for defects in the output that no pattern covers. Those are the additions, and they are worth more than the removals.
+
+Record every review in the log in `BASELINE-PROMPTS.md`, with the model and date. A pattern retired in one generation may return in the next, and knowing when it was last seen is the difference between a judgement and a guess.
 
 ## Source
 

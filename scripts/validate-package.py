@@ -73,16 +73,19 @@ pattern_numbers = [
     int(number)
     for number in re.findall(r"(?m)^### ([0-9]+)\. ", SKILL)
 ]
-if pattern_numbers != list(range(1, 36)):
-    raise SystemExit(f"Number SKILL.md patterns from 1 through 35: {pattern_numbers}")
+expected_numbers = list(range(1, max(pattern_numbers, default=0) + 1))
+if not pattern_numbers or pattern_numbers != expected_numbers:
+    raise SystemExit(f"Number SKILL.md patterns from 1 upward without gaps: {pattern_numbers}")
 
 readme_numbers = {
     int(number) for number in re.findall(r"(?m)^\| ([0-9]+) \|", README)
 }
-if readme_numbers != set(range(1, 36)):
-    raise SystemExit("List patterns 1 through 35 in the README table")
+if readme_numbers != set(pattern_numbers):
+    raise SystemExit(
+        f"List every SKILL.md pattern in the README tables: SKILL has {len(pattern_numbers)}, README has {sorted(readme_numbers)}"
+    )
 
-if len(SKILL.splitlines()) > 500:
-    raise SystemExit("Keep SKILL.md at 500 lines or fewer")
+if len(SKILL.splitlines()) > 650:
+    raise SystemExit("Keep SKILL.md at 650 lines or fewer")
 
 print(f"Humanizer package v{skill_version} is valid")

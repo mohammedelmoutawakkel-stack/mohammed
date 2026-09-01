@@ -6,7 +6,7 @@ Humanizer rewrites AI-sounding text so it reads like a person wrote it, without 
 
 ## How it works
 
-Humanizer uses 35 patterns from Wikipedia's ["Signs of AI writing"](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), maintained by WikiProject AI Cleanup. It makes a first pass without treating the original structure as fixed. Then it checks the draft against those patterns and the original claims before rewriting whatever still needs work.
+Humanizer uses 41 patterns from Wikipedia's ["Signs of AI writing"](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), maintained by WikiProject AI Cleanup. It makes a first pass without treating the original structure as fixed. Then it checks the draft against those patterns and the original claims before rewriting whatever still needs work.
 
 > "LLMs use statistical algorithms to guess what should come next. The result tends toward the most statistically likely result that applies to the widest variety of cases."
 
@@ -52,7 +52,9 @@ Now humanize this text:
 
 Humanizer follows the sample's rhythm, word choice, punctuation, and deliberate quirks.
 
-## The 35 patterns
+## The 41 patterns
+
+Patterns 1 to 35 are upstream's. This fork adds #36 and five Swedish patterns, #37 to #41, plus a length-mode check, a deletion pass in the rewrite process, and a method for reviewing the guide against a new model (see `BASELINE-PROMPTS.md`). Six patterns carry a **Status: quiet** line from the first such review and stay until a second review confirms they no longer fire.
 
 ### Content patterns
 
@@ -97,6 +99,17 @@ Humanizer follows the sample's rhythm, word choice, punctuation, and deliberate 
 | 33 | **Fake-candid openings** | "Honestly? It depends..." | State the answer directly |
 | 34 | **Answering objections no one raised** | "This isn't mainly about prompt length..." | Remove the unsupported defense and keep any real claim |
 | 35 | **Rejecting fake alternatives** | "A tempting option would be to..., but" | Remove the fake option and keep real choices |
+| 36 | **Invented particulars in first-person text** | "I would have stopped on day six instead of day twenty-one" (the brief said neither) | Keep only what the writer supplied |
+
+### Swedish patterns
+
+| # | Pattern | Before | After |
+|---|---------|--------|-------|
+| 37 | **Imported dash typography** | "grundades 2026—ett år efter" | "grundades 2026, ett år efter" (a spaced ` – ` is correct and stays) |
+| 38 | **Translated English idiom** | "en otrolig resa", "utforska det nya landskapet" | Say the plain Swedish thing |
+| 39 | **Connector stacking** | "Dessutom... Vidare... Sammanfattningsvis..." | Delete the connector; Swedish tolerates asyndeton |
+| 40 | **Swedish LinkedIn voice** | "Så otroligt stolt över att kunna meddela", broetry line breaks | Ordinary statements in ordinary paragraphs |
+| 41 | **Over-formal register** | "Om man vill... rekommenderas att en genomgång görs" | "Vill du..., börja med att gå igenom" |
 
 ### Chatbot patterns
 
@@ -154,6 +167,7 @@ Humanizer follows the sample's rhythm, word choice, punctuation, and deliberate 
 <details>
 <summary>Show release notes</summary>
 
+- **2.12.0** - Fork additions (bltg85). Length-mode check before editing, so a four-word reply is not run through the essay checklist. Deletion pass in the rewrite process. Narrative form of #28 and paragraph-level form of #31, each with a test. New #36 invented particulars. Five Swedish patterns, #37 to #41, with a matching exception in §14 so correct Swedish dashes survive. A method for reviewing the guide against a new model, with frozen prompts and a log in `BASELINE-PROMPTS.md`. First review run against Fable 5.1 on 2026-08-26 marked six patterns quiet. 41 patterns total.
 - **2.11.2** - Removed the plugin symlink and separate Claude Desktop package. Current Claude Code loads the root `SKILL.md` directly, so GitHub's source ZIP now works in Claude Desktop. No change to the 35 patterns.
 - **2.11.1** - Added a Claude Desktop-ready release package with one regular `humanizer/SKILL.md` file. GitHub's source archive still keeps the plugin symlink (fixes #224). No change to the 35 patterns.
 - **2.11.0** - Rewrote all repo guidance, descriptions, checks, and skill instructions in Plain Language. Kept all 35 patterns and their behavior.
@@ -187,7 +201,9 @@ MIT
 
 ## Installation
 
-Install Humanizer with the Skills CLI:
+This is a fork. The commands below install upstream `blader/humanizer`, which does not have the Swedish patterns, the length-mode check, or the review method. To get this version, clone `bltg85/humanizer` into your skills folder instead.
+
+Install upstream Humanizer with the Skills CLI:
 
 ```bash
 npx skills add blader/humanizer --global
