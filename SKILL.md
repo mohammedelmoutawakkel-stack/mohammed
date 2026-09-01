@@ -7,7 +7,7 @@ description: |
   voice, filler, or chatbot artifacts. Based on Wikipedia's "Signs of AI writing."
 license: MIT
 metadata:
-  version: "2.11.2"
+  version: "2.12.0"
 ---
 
 # Humanizer: remove AI writing patterns
@@ -389,6 +389,15 @@ Remove only the unsupported defense. If it contains a real claim, state that cla
 > Session tokens are rotated every 24 hours, in place, and clients refresh transparently.
 
 One rejected option may be valid. Several short, unrelated rejections are a stronger sign. Ask what new information each sentence adds. If it only records an earlier edit, rewrite the paragraph around its main point.
+
+### 36. Unearned superlatives
+
+**Phrases to watch:** "the most [adjective]", "the single [noun]", "the biggest/fastest/cheapest/best/worst", "the primary", "the critical/essential/vital", "the only [noun] that [verb]", "the source of truth"
+**Problem:** A superlative claims a ranking the text has not established. "The most important feature" and "the single source of truth" read as slogans unless the surrounding sentences show the comparison or the phrase is quoted from a named source. Keep a superlative only when it is defended nearby or attributed. Otherwise demote it ("the most" to "a major", "the single source of truth" to "the canonical copy") or drop it and let the noun carry the point.
+**Before:**
+> Indexing is the most important thing you can do for query speed, and the query planner is the single source of truth for how a statement runs.
+**After:**
+> Indexing usually gives the largest gain in query speed. The query planner decides how each statement runs, so read its output before changing an index.
 
 ## Check for false positives
 
