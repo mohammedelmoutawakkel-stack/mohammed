@@ -52,6 +52,21 @@ Now humanize this text:
 
 Humanizer follows the sample's rhythm, word choice, punctuation, and deliberate quirks.
 
+### Multi-document mode
+
+To give a set of related drafts one voice, name the files or point at a folder:
+
+```
+Humanize these drafts with one shared voice:
+docs/release-notes.md
+docs/getting-started.md
+blog/launch-post.md
+```
+
+Humanizer works in two phases. First it reads every file without changing anything and builds a portfolio voice brief: the habits the files share, the variation each document type is allowed to keep, and short excerpts as evidence. It also records each file's claims and protected formatting, then shows a preview table with the planned edit intensity, dominant AI patterns, protected content, and open questions per file.
+
+Nothing is written until you approve the whole set or name a subset. Humanizer then rewrites one file at a time, verifies each file's claims and formatting, and finishes with a cross-file review for consistent terminology, voice drift, and repeated stock openings or closings. Generated files, vendored content, code, and unsupported formats stay out unless you name them directly, and every exclusion is reported.
+
 ## The 35 patterns
 
 ### Content patterns
@@ -154,6 +169,7 @@ Humanizer follows the sample's rhythm, word choice, punctuation, and deliberate 
 <details>
 <summary>Show release notes</summary>
 
+- **2.12.0** - Added multi-document mode: a read-only portfolio analysis with a shared voice brief, per-file claim ledgers, and a preview table, then a user-approved one-file-at-a-time rewrite with a cross-file consistency review. No change to the 35 patterns.
 - **2.11.2** - Removed the plugin symlink and separate Claude Desktop package. Current Claude Code loads the root `SKILL.md` directly, so GitHub's source ZIP now works in Claude Desktop. No change to the 35 patterns.
 - **2.11.1** - Added a Claude Desktop-ready release package with one regular `humanizer/SKILL.md` file. GitHub's source archive still keeps the plugin symlink (fixes #224). No change to the 35 patterns.
 - **2.11.0** - Rewrote all repo guidance, descriptions, checks, and skill instructions in Plain Language. Kept all 35 patterns and their behavior.

@@ -1,4 +1,4 @@
 interface:
   display_name: "Humanizer"
-  short_description: "Make AI-written text sound like the writer"
+  short_description: "Make AI-written text sound like the writer, for one document or a set"
   default_prompt: "Use $humanizer to rewrite this text in my voice without changing its facts."
