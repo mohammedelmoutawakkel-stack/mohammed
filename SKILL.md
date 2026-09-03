@@ -4,10 +4,12 @@ description: |
   Rewrite AI-sounding text so it reads naturally without changing what it says.
   Use when editing or reviewing prose for inflated claims,
   sales language, vague sources, repetitive structure, stock AI words, passive
-  voice, filler, or chatbot artifacts. Based on Wikipedia's "Signs of AI writing."
+  voice, filler, or chatbot artifacts. When the user asks for an audit, a review
+  for AI patterns, or what you would change without rewriting, report findings
+  instead of returning a rewrite. Based on Wikipedia's "Signs of AI writing."
 license: MIT
 metadata:
-  version: "2.11.2"
+  version: "2.12.0"
 ---
 
 # Humanizer: remove AI writing patterns
@@ -436,6 +438,25 @@ These details often carry the writer's voice. Keep them unless they hurt the mea
 **File mode.** When the user names a file, run the full rewrite process but write only the final text to the file. Change prose only. Keep code blocks, YAML metadata, data, and link targets unchanged. Then give the user a short summary.
 
 **Embedded mode.** When another task uses this skill for a pull request, commit message, or document, return only the final text.
+
+**Inspect-only mode.** When the user asks for an audit instead of a rewrite, with requests such as "audit this text," "review this for AI patterns," or "show what you would change without rewriting," return the audit below. Do not use this mode for a plain rewrite or review request; the user must ask to see findings without a rewrite.
+
+## Inspect-only mode
+
+Run the same pattern check you would run before a rewrite, then stop. Return no rewritten prose and change no file. Apply every false-positive rule. Leave quotations, examples, code, proper names, and deliberate voice alone. Never give a detector score, a probability, or a verdict that the text is AI-generated. The audit describes patterns, not authorship.
+
+Return these four parts:
+
+1. **Assessment.** One sentence on how the text reads and how much editing it needs. Do not classify who or what wrote it.
+2. **Findings table.** One row per finding: the exact excerpt quoted from the source, the matching pattern number, why the match is contextual rather than a banned word, and a confidence label.
+3. **Claim ledger.** The meaning-sensitive language a future rewrite must keep: rankings and superlatives, qualifiers, numbers, names, dates, quotations, links, and statements that things happened at the same time.
+4. **Rewrite brief.** A short numbered list of the edits you would make, highest impact first. Describe each edit without writing the new sentence.
+
+Use exactly three confidence labels:
+
+- `clear`: the pattern applies and an edit would help.
+- `possible`: the pattern may apply; the writer should decide.
+- `keep`: the text resembles a pattern but a false-positive rule protects it.
 
 ## Rewrite process
 

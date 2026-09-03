@@ -36,6 +36,22 @@ To rewrite a file, give Humanizer its path:
 Humanize the prose in docs/launch-post.md
 ```
 
+### Inspect-only mode
+
+Ask for an audit when you want findings instead of a rewrite:
+
+```
+Audit this text for AI patterns without rewriting it: [your text]
+```
+
+Humanizer returns a one-sentence assessment, a findings table, a claim ledger of details a rewrite must keep (rankings, qualifiers, numbers, names, dates, quotations, links, and simultaneity), and a short rewrite brief ordered by impact. It rewrites nothing and changes no file. It never gives a detector score or claims the text is AI-generated.
+
+Each finding quotes the source, names a pattern number, and carries a confidence label: `clear` (an edit would help), `possible` (the writer should decide), or `keep` (a false-positive rule protects it). For example:
+
+| Excerpt | Pattern | Why it matches | Confidence |
+|---|---|---|---|
+| "stands as a vibrant testament" | 1, 4 | Inflated legacy claim with sales tone in factual prose | clear |
+
 ### Match your voice
 
 If you want the rewrite to sound more like you, include a sample:
@@ -154,6 +170,7 @@ Humanizer follows the sample's rhythm, word choice, punctuation, and deliberate 
 <details>
 <summary>Show release notes</summary>
 
+- **2.12.0** - Added inspect-only mode: an audit that quotes each finding with its pattern number and a `clear`, `possible`, or `keep` confidence label, lists the claims a rewrite must keep, and rewrites nothing (see #212, #229, #250). No change to the 35 patterns.
 - **2.11.2** - Removed the plugin symlink and separate Claude Desktop package. Current Claude Code loads the root `SKILL.md` directly, so GitHub's source ZIP now works in Claude Desktop. No change to the 35 patterns.
 - **2.11.1** - Added a Claude Desktop-ready release package with one regular `humanizer/SKILL.md` file. GitHub's source archive still keeps the plugin symlink (fixes #224). No change to the 35 patterns.
 - **2.11.0** - Rewrote all repo guidance, descriptions, checks, and skill instructions in Plain Language. Kept all 35 patterns and their behavior.

@@ -82,6 +82,27 @@ readme_numbers = {
 if readme_numbers != set(range(1, 36)):
     raise SystemExit("List patterns 1 through 35 in the README table")
 
+return_modes = (
+    "**Pasted text (default).**",
+    "**File mode.**",
+    "**Embedded mode.**",
+    "**Inspect-only mode.**",
+)
+missing_modes = [mode for mode in return_modes if mode not in SKILL]
+if missing_modes:
+    raise SystemExit(
+        "Add the missing return modes to SKILL.md: " + ", ".join(missing_modes)
+    )
+
+inspect_terms = ("Inspect-only mode", "`clear`", "`possible`", "`keep`")
+for file_name, text in (("SKILL.md", SKILL), ("README.md", README)):
+    missing_terms = [term for term in inspect_terms if term not in text]
+    if missing_terms:
+        raise SystemExit(
+            f"Add the missing inspect-only terms to {file_name}: "
+            + ", ".join(missing_terms)
+        )
+
 if len(SKILL.splitlines()) > 500:
     raise SystemExit("Keep SKILL.md at 500 lines or fewer")
 
