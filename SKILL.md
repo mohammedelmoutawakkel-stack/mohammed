@@ -4,10 +4,10 @@ description: |
   Rewrite AI-sounding text so it reads naturally without changing what it says.
   Use when editing or reviewing prose for inflated claims,
   sales language, vague sources, repetitive structure, stock AI words, passive
-  voice, filler, or chatbot artifacts. Based on Wikipedia's "Signs of AI writing."
+  voice, filler, figures of speech, or chatbot artifacts. Based on Wikipedia's "Signs of AI writing."
 license: MIT
 metadata:
-  version: "2.11.2"
+  version: "2.11.3"
 ---
 
 # Humanizer: remove AI writing patterns
@@ -389,6 +389,17 @@ Remove only the unsupported defense. If it contains a real claim, state that cla
 > Session tokens are rotated every 24 hours, in place, and clients refresh transparently.
 
 One rejected option may be valid. Several short, unrelated rejections are a stronger sign. Ask what new information each sentence adds. If it only records an earlier edit, rewrite the paragraph around its main point.
+
+### 36. Metaphor in place of a plain phrase
+
+**Words to watch:** a dial to turn/worth turning, earns its keep, moves the needle, the secret sauce, punches above its weight, a double-edged sword, the north star, low-hanging fruit, when the rubber meets the road, bread and butter, table stakes
+**Problem:** AI writing often replaces a plain statement with a metaphor or figure of speech. "A parameter worth varying" becomes "a dial worth turning"; "this point still matters" becomes "this point earns its keep." The metaphor makes the reader work harder without adding information, and it drags in extra meanings the writer did not choose. When a plain phrase says the same thing, use it.
+**Before:**
+> Batch size is a dial worth turning, and the caching layer earns its keep once traffic climbs. Getting retries right is table stakes.
+**After:**
+> Batch size is worth varying, and the caching layer reduces load once traffic climbs. Retries have to be handled correctly.
+
+A metaphor can be the clearest option, especially when it is the standard term in the field. Flag it only when a plain phrase would say the same thing.
 
 ## Check for false positives
 
