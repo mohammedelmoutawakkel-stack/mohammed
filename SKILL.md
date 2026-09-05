@@ -7,7 +7,7 @@ description: |
   voice, filler, or chatbot artifacts. Based on Wikipedia's "Signs of AI writing."
 license: MIT
 metadata:
-  version: "2.11.2"
+  version: "2.11.3"
 ---
 
 # Humanizer: remove AI writing patterns
@@ -36,6 +36,14 @@ If the user provides a writing sample (their own previous writing), analyze it b
 3. If there is no sample, use the guidance below.
 
 A writing sample takes priority over these style rules. If the sample uses em dashes, keep them at about the same rate. Do not apply §14 as a ban.
+
+## Keep marketing copy useful
+
+Humanize marketing copy without turning it into neutral reference prose. Keep the primary keyword in its meaningful placements, such as the title or H1, early copy, and a relevant H2. Do not replace it with a synonym. Keep the heading levels and order, every link and its target, images and alt text, meta and frontmatter, answer-first content, numbered how-to steps, FAQ questions, calls to action and their links, and benefits that the source supports. Cut fluff, not the topical coverage the page needs.
+
+Patterns 1, 2, 4, 10, 15 through 18, and 25 describe common AI tells. In marketing copy, do not remove an item just because it is persuasive or easy to scan. Keep a supported claim, social proof, bold label, list, title case heading, emoji, or positive close when it fits the brand and serves the page. Replace vague hype with a clear claim. Never add a statistic, testimonial, customer, logo, count, ranking, capability, or outcome.
+
+Before returning a marketing rewrite, check that the keyword, headings, links, images, and call to action still work.
 
 ## Add personality only when it fits
 
