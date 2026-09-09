@@ -10,7 +10,7 @@ Keep the skill portable. Do not write instructions that limit it to one or two a
 
 ## Key files
 
-- `SKILL.md` is the source of truth and the repo's only skill file. It contains portable YAML metadata, an account of why AI text sounds the way it does, and numbered patterns grouped in five sections and ordered by strength and frequency.
+- `SKILL.md` is the source of truth and the repo's only skill file. It contains portable YAML metadata, an account of why AI text sounds the way it does, and numbered patterns grouped in six sections and ordered by strength and frequency.
 - `README.md` explains installation, use, patterns, and version history.
 - `.claude-plugin/plugin.json` describes the Claude plugin and points its skill loader at the root `SKILL.md`.
 - `.claude-plugin/marketplace.json` lets users add this repo as a Claude marketplace.

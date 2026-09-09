@@ -7,7 +7,7 @@ description: |
   language, stock AI words, bold labels, or filler. Based on Wikipedia's "Signs of AI writing."
 license: MIT
 metadata:
-  version: "3.0.0"
+  version: "3.1.0"
 ---
 
 # Humanizer: remove AI writing patterns
@@ -23,10 +23,11 @@ A language model writes whatever is most likely to come next, so by default it m
 - **Inflation.** Ordinary facts dressed as pivotal or expert-backed.
 - **Formatting by rule.** Bold and title case applied to every item.
 - **Leftovers.** Chat wrappers and drafting moves that were never meant for the reader.
+- **Wrong reader.** A reply re-explains background the other person already has, so the decision arrives last.
 
 Word habits change with every model release. The structural habits above persist, so they lead the list below.
 
-Two rules follow from this. Every sentence you keep must add something the reader did not already have. A tell counts in proportion to how rarely a careful writer would make it on purpose. The patterns are numbered strongest first: §1 to §5 justify an edit on one sighting, and a pattern marked *weak alone* needs company from other tells in the same passage before you act.
+Two rules follow from this. Every sentence you keep must add something the reader did not already have, from earlier in the text or from the conversation around it. A tell counts in proportion to how rarely a careful writer would make it on purpose. The patterns are numbered strongest first: §1 to §5 justify an edit on one sighting, and a pattern marked *weak alone* needs company from other tells in the same passage before you act.
 
 ## How to work
 
@@ -356,6 +357,23 @@ Remove these outright. Nothing here needs rewriting.
 > This function was added to replace the previous approach of iterating through all items, which caused O(n²) performance.
 **After:**
 > This function uses a hash map for O(1) lookups, avoiding the O(n²) cost of naive iteration.
+
+## F. Writing for the wrong reader
+
+A model writes for a reader who shares no context, because that fits the widest range of cases. A reply in a thread has a reader who already knows the background. Act on this pattern only when you can see the surrounding conversation; without it, ask or leave the text alone.
+
+### 26. Re-explaining what the reader knows
+
+**Watch for:** a short reply that restates the problem, walks through the diagnosis, and lays out the evidence before it reaches the decision; background the other person wrote or already agreed to; a full proof of a point no one disputes; the actual answer sitting in the last line.
+**Problem:** In a reply the reader shares the context, so rebuilding it adds nothing and buries the point. Each sentence can read fine on its own, so this survives sentence-level cleanup. Keep the decision and the least reasoning that supports it. Cut background the reader gave you, steps toward a conclusion no one questions, and evidence for a claim both sides accept. Keep a fact the reader does not have, a link they need, and enough reasoning to show why the decision follows. This applies to a reply in an ongoing thread, not to standalone writing, where the reader may need the whole account.
+**Before:**
+> Yeah, you're right, this works around the issue rather than fixing it. The real fix is in `MergeService#process!`: when we move a child under a new parent, we should update `pipeline_id` along with `parent_id`. I checked QA and found 123 past merge events with only 6 projects currently wrong, so the backfill is small.
+>
+> Since the fix is in the shared `MergeService` and isn't specific to this account, I'd rather open a separate ticket than widen this PR. The fallback here is fine to keep until then.
+**After:**
+> Agreed, but fixing it in `MergeService` would blow up the scope of this ticket. It means testing the merge flow for every account, plus a backfill for the projects that are already wrong.
+>
+> I'd rather keep this PR account specific and open a separate ticket for the `MergeService` fix and the backfill. Let me know if that works.
 
 ## When not to act
 
