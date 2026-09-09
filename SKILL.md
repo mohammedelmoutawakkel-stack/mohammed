@@ -7,7 +7,7 @@ description: |
   language, stock AI words, bold labels, or filler. Based on Wikipedia's "Signs of AI writing."
 license: MIT
 metadata:
-  version: "3.0.0"
+  version: "3.1.0"
 ---
 
 # Humanizer: remove AI writing patterns
@@ -23,10 +23,11 @@ A language model writes whatever is most likely to come next, so by default it m
 - **Inflation.** Ordinary facts dressed as pivotal or expert-backed.
 - **Formatting by rule.** Bold and title case applied to every item.
 - **Leftovers.** Chat wrappers and drafting moves that were never meant for the reader.
+- **Wrong reader.** A reply re-explains background the other person already has, so the decision arrives last.
 
 Word habits change with every model release. The structural habits above persist, so they lead the list below.
 
-Two rules follow from this. Every sentence you keep must add something the reader did not already have. A tell counts in proportion to how rarely a careful writer would make it on purpose. The patterns are numbered strongest first: §1 to §5 justify an edit on one sighting, and a pattern marked *weak alone* needs company from other tells in the same passage before you act.
+Two rules follow from this. Every sentence you keep must add something the reader did not already have, from earlier in the text or from the conversation around it. A tell counts in proportion to how rarely a careful writer would make it on purpose. The patterns are numbered strongest first: §1 to §5 justify an edit on one sighting, and a pattern marked *weak alone* needs company from other tells in the same passage before you act.
 
 ## How to work
 
@@ -356,6 +357,23 @@ Remove these outright. Nothing here needs rewriting.
 > This function was added to replace the previous approach of iterating through all items, which caused O(n²) performance.
 **After:**
 > This function uses a hash map for O(1) lookups, avoiding the O(n²) cost of naive iteration.
+
+## F. Writing for the wrong reader
+
+A model writes for a reader who shares no context, because that fits the widest range of cases. A reply in a thread has a reader who already knows the background. Act on this pattern when you can see the surrounding conversation, or when the text plainly is a reply. If you cannot tell, ask or leave the text alone.
+
+### 26. Re-explaining what the reader knows
+
+**Watch for:** a short reply that restates the problem, walks through the diagnosis, and lays out the evidence before it reaches the decision; a query, command, or set of numbers included to prove a plan will work; background the other person wrote or already agreed to; the answer itself sitting in the last line.
+**Problem:** In a reply the reader already has the context, so rebuilding it adds nothing and buries the point. Each sentence can read fine on its own, so this survives sentence-level cleanup. Lead with the decision. Keep only the reasoning that would change whether the reader agrees with it. When the reply delivers a decision, the diagnosis behind it and the proof that a plan will work belong in the ticket or document that follows, not in the reply; a reviewer raising a topic is not a request for the full write-up. Cut background the reader gave you, a walk-through of a cause no one disputes, and evidence for a plan both sides already expect. Keep one fact that would change the reader's mind and a link they need to act. This applies to a reply in a thread, not to standalone writing, where the reader may need the whole account.
+**Before:**
+> Yeah, you're right, this works around the issue rather than fixing it. The real fix is in `MergeService`: when we move a child under a new parent, it should update `pipeline_id` along with `parent_id`. We can backfill the bad rows from the audit log with `Change.where(field: "pipeline_id", source: "merge")`. I checked QA: 123 past merges, only 6 rows wrong now, so the cleanup is small.
+>
+> Since `MergeService` is shared and not specific to this account, I'd rather open a separate ticket than widen this PR. The fallback here is fine to keep until then.
+**After:**
+> Agreed, this is a workaround. Fixing it properly in `MergeService` would widen this ticket well past its scope: it is shared code, so it means checking the merge flow for every account, plus a backfill for the rows that are already wrong.
+>
+> I'd rather keep this PR account specific and open a separate ticket for the `MergeService` fix and the backfill. Let me know if that works.
 
 ## When not to act
 
