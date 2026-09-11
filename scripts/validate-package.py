@@ -81,6 +81,31 @@ if sorted(readme_numbers) != pattern_numbers:
 if f"## The {pattern_count} patterns" not in README:
     raise SystemExit(f"Title the README pattern section 'The {pattern_count} patterns'")
 
+# A renumber can leave a section reference pointing at the wrong pattern or at
+# nothing. README references sit in older version notes, so read SKILL.md only.
+skill_references = sorted({int(number) for number in re.findall(r"§([0-9]+)", SKILL)})
+missing_patterns = [
+    number for number in skill_references if not 1 <= number <= pattern_count
+]
+if missing_patterns:
+    raise SystemExit(
+        f"Point every SKILL.md section reference at a pattern from 1 to "
+        f"{pattern_count}: {missing_patterns}"
+    )
+
+dash_pattern = require_match(
+    re.search(r"(?m)^### ([0-9]+)\. [^\n]*[Dd]ashes", SKILL),
+    "Name the dash pattern in one SKILL.md heading",
+).group(1)
+sample_dash_rule = require_match(
+    re.search(r"(?m)^.*if the sample uses dashes.*$", SKILL),
+    "Keep the voice rule that lets a writing sample keep its dashes",
+).group(0)
+if f"§{dash_pattern}" not in sample_dash_rule:
+    raise SystemExit(
+        f"Point the sample-dash rule at §{dash_pattern}, the dash pattern"
+    )
+
 if len(SKILL.splitlines()) > 400:
     raise SystemExit("Keep SKILL.md at 400 lines or fewer")
 
