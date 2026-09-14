@@ -25,6 +25,12 @@ try:
     PLUGIN = json.loads(read_package_file(ROOT / ".claude-plugin" / "plugin.json"))
 except json.JSONDecodeError as error:
     raise SystemExit(f"Fix the JSON in .claude-plugin/plugin.json: {error}")
+try:
+    CURSOR_PLUGIN = json.loads(
+        read_package_file(ROOT / ".cursor-plugin" / "plugin.json")
+    )
+except json.JSONDecodeError as error:
+    raise SystemExit(f"Fix the JSON in .cursor-plugin/plugin.json: {error}")
 
 
 def require_match(match: re.Match[str] | None, message: str) -> re.Match[str]:
@@ -51,7 +57,12 @@ readme_version = require_match(
     "Add a version entry to README.md",
 ).group(1)
 
-package_versions = {skill_version, readme_version, str(PLUGIN.get("version", ""))}
+package_versions = {
+    skill_version,
+    readme_version,
+    str(PLUGIN.get("version", "")),
+    str(CURSOR_PLUGIN.get("version", "")),
+}
 if len(package_versions) != 1:
     raise SystemExit(
         f"Use one package version in all files: {sorted(package_versions)}"
@@ -62,6 +73,10 @@ if SKILL_PATH.is_symlink() or skill_files != {Path("SKILL.md")}:
     raise SystemExit("Keep one regular SKILL.md at the repo root")
 if PLUGIN.get("skills") != ["./"]:
     raise SystemExit("Point the Claude plugin skill loader at the repo root")
+if CURSOR_PLUGIN.get("name") != "humanizer":
+    raise SystemExit("Set the Cursor plugin name to humanizer")
+if "skills" in CURSOR_PLUGIN:
+    raise SystemExit("Omit skills from the Cursor plugin so it loads the root SKILL.md")
 
 pattern_numbers = [
     int(number)
